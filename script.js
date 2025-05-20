@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveExamplesBtn = document.getElementById('saveExamplesBtn');
     
     const loadingIndicator = document.getElementById('loadingIndicator');
-    const saveFeedback = document.getElementById('saveFeedback'); // For API key/examples save feedback
+    const saveFeedback = document.getElementById('saveFeedback');
     const prepareDataBtn = document.getElementById('prepareDataBtn');
     const makeComDataOutputSection = document.getElementById('makeComDataOutputSection');
     const makeComDataOutput = document.getElementById('makeComDataOutput');
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function showSaveFeedback(message, isSuccess) {
         saveFeedback.textContent = message;
         saveFeedback.className = 'save-feedback ' + (isSuccess ? 'success' : 'error');
-        saveFeedback.style.display = 'flex';
+        saveFeedback.style.display = 'flex'; // Use flex to center if styles are set up for it
         setTimeout(() => {
             saveFeedback.style.display = 'none';
         }, 3000);
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.setItem('reportGeneratorApiKey', apiKey);
                 showSaveFeedback('API Key saved!', true);
             } else {
-                showSaveFeedback('API Key cannot be empty.', false);
+                showSaveFeedback('API Key cannot be empty to save.', false);
             }
         });
     }
@@ -50,20 +50,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.setItem('reportGeneratorPreviousExamples', examples);
                 showSaveFeedback('Report examples saved!', true);
             } else {
-                showSaveFeedback('Report examples cannot be empty.', false);
+                showSaveFeedback('Report examples cannot be empty to save.', false);
             }
         });
     }
 
-    // Load data when DOM is ready
-    loadSavedData();
+    loadSavedData(); // Load data when DOM is ready
 
     // --- AI Generation for applicable sections ---
     document.querySelectorAll('.generate-ai-text-btn').forEach(button => {
         const sectionName = button.dataset.sectionName;
-        // Pupil comments AI is removed, this check ensures no listener is added if button was missed in HTML
-        if (sectionName && sectionName.toLowerCase().includes("pupil's comments")) {
-            return; 
+        // Ensure we don't try to attach listeners to non-existent AI sections
+        if (!document.getElementById(button.dataset.sourceId) || !document.getElementById(button.dataset.targetId)) {
+            console.warn(`Skipping AI button for ${sectionName} due to missing source/target elements.`);
+            return;
         }
 
         button.addEventListener('click', async () => {
@@ -158,17 +158,23 @@ Generated Text:
         let allRequiredFilled = true;
         const requiredFieldIds = [
             'var_academicYear', 'var_teacherName', 'var_childFullName',
-            'var_teacherGeneralComments', // AI generated part, but field should have content
+            'var_teacherGeneralComments',
             'var_target1' 
         ];
-         const requiredSelectFieldIds = [
+        const requiredSelectFieldIds = [
             'var_readingAttainment', 'var_readingEffort',
             'var_writingAttainment', 'var_writingEffort',
             'var_mathematicsAttainment', 'var_mathematicsEffort',
             'var_scienceAttainment', 'var_scienceEffort',
-             // Foundation subjects are generally optional in terms of being *always* graded,
-             // but if a selection is made for attainment, effort might also be expected, and vice-versa.
-             // For simplicity, making core subjects mandatory for grades.
+            // Add other foundation subjects if they are strictly required for *every* report
+            'var_artAttainment', 'var_artEffort',
+            'var_computingAttainment', 'var_computingEffort',
+            'var_designTechnologyAttainment', 'var_designTechnologyEffort',
+            'var_geographyAttainment', 'var_geographyEffort',
+            'var_historyAttainment', 'var_historyEffort',
+            'var_musicAttainment', 'var_musicEffort',
+            'var_physicalEducationAttainment', 'var_physicalEducationEffort',
+            'var_religiousEducationAttainment', 'var_religiousEducationEffort',
         ];
 
         allInputs.forEach(input => {
@@ -179,12 +185,21 @@ Generated Text:
                 input.style.borderColor = ''; 
                 
                 if (requiredFieldIds.includes(input.id) && !input.value.trim()) {
-                    allRequiredFilled = false;
-                    input.style.borderColor = 'red';
+                    // French is optional so don't validate if N/A is selected
+                    if (input.id.toLowerCase().includes('french') && input.value === "N/A") {
+                        // Allow N/A for French
+                    } else {
+                        allRequiredFilled = false;
+                        input.style.borderColor = 'red';
+                    }
                 }
                 if (requiredSelectFieldIds.includes(input.id) && !input.value) {
-                    allRequiredFilled = false;
-                    input.style.borderColor = 'red';
+                     if (input.id.toLowerCase().includes('french') && (reportData['frenchAttainment'] === "N/A" || reportData['frenchEffort'] === "N/A")) {
+                        // Allow empty if N/A is part of the French selection
+                    } else {
+                        allRequiredFilled = false;
+                        input.style.borderColor = 'red';
+                    }
                 }
             }
         });
@@ -206,16 +221,16 @@ Generated Text:
         alert("Data prepared for Make.com! Scroll down to view and copy the JSON data.");
     });
 
-    // Initial styling for select placeholders (if browser supports :placeholder-shown or similar)
+    // JS to handle select placeholder class for styling (if :required:invalid isn't enough)
     document.querySelectorAll('.subject-grid select.pt-input').forEach(select => {
-        function styleSelectPlaceholder() {
+        function updatePlaceholderClass() {
             if (select.value === "") {
                 select.classList.add('placeholder-shown');
             } else {
                 select.classList.remove('placeholder-shown');
             }
         }
-        select.addEventListener('change', styleSelectPlaceholder);
-        styleSelectPlaceholder(); // Call on load
+        select.addEventListener('change', updatePlaceholderClass);
+        updatePlaceholderClass(); // Initial check
     });
 });
