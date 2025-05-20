@@ -1,29 +1,76 @@
 document.addEventListener('DOMContentLoaded', () => {
     const apiKeyInput = document.getElementById('apiKey');
+    const saveApiKeyBtn = document.getElementById('saveApiKeyBtn');
     const previousExamplesInput = document.getElementById('previousExamples');
+    const saveExamplesBtn = document.getElementById('saveExamplesBtn');
+    
     const loadingIndicator = document.getElementById('loadingIndicator');
+    const saveFeedback = document.getElementById('saveFeedback'); // For API key/examples save feedback
     const prepareDataBtn = document.getElementById('prepareDataBtn');
     const makeComDataOutputSection = document.getElementById('makeComDataOutputSection');
     const makeComDataOutput = document.getElementById('makeComDataOutput');
 
-    // Event listeners for "Generate AI Text" buttons (excluding Targets now)
-    document.querySelectorAll('.generate-ai-text-btn').forEach(button => {
-        // Skip if button is for targets, as that functionality is removed
-        const sectionName = button.dataset.sectionName;
-        if (sectionName && sectionName.toLowerCase().includes("targets for the year ahead")) {
-            return; // Skip adding event listener for removed AI targets
+    // --- Local Storage Functions ---
+    function loadSavedData() {
+        const savedApiKey = localStorage.getItem('reportGeneratorApiKey');
+        if (savedApiKey) {
+            apiKeyInput.value = savedApiKey;
         }
-         if (sectionName && sectionName.toLowerCase().includes("head teacher's comments")) {
-            return; // Skip for removed headteacher comments
+        const savedExamples = localStorage.getItem('reportGeneratorPreviousExamples');
+        if (savedExamples) {
+            previousExamplesInput.value = savedExamples;
         }
+    }
 
+    function showSaveFeedback(message, isSuccess) {
+        saveFeedback.textContent = message;
+        saveFeedback.className = 'save-feedback ' + (isSuccess ? 'success' : 'error');
+        saveFeedback.style.display = 'flex';
+        setTimeout(() => {
+            saveFeedback.style.display = 'none';
+        }, 3000);
+    }
+
+    if (saveApiKeyBtn) {
+        saveApiKeyBtn.addEventListener('click', () => {
+            const apiKey = apiKeyInput.value.trim();
+            if (apiKey) {
+                localStorage.setItem('reportGeneratorApiKey', apiKey);
+                showSaveFeedback('API Key saved!', true);
+            } else {
+                showSaveFeedback('API Key cannot be empty.', false);
+            }
+        });
+    }
+
+    if (saveExamplesBtn) {
+        saveExamplesBtn.addEventListener('click', () => {
+            const examples = previousExamplesInput.value.trim();
+            if (examples) {
+                localStorage.setItem('reportGeneratorPreviousExamples', examples);
+                showSaveFeedback('Report examples saved!', true);
+            } else {
+                showSaveFeedback('Report examples cannot be empty.', false);
+            }
+        });
+    }
+
+    // Load data when DOM is ready
+    loadSavedData();
+
+    // --- AI Generation for applicable sections ---
+    document.querySelectorAll('.generate-ai-text-btn').forEach(button => {
+        const sectionName = button.dataset.sectionName;
+        // Pupil comments AI is removed, this check ensures no listener is added if button was missed in HTML
+        if (sectionName && sectionName.toLowerCase().includes("pupil's comments")) {
+            return; 
+        }
 
         button.addEventListener('click', async () => {
             const apiKey = apiKeyInput.value.trim();
             const previousExamples = previousExamplesInput.value.trim();
             const sourceId = button.dataset.sourceId;
             const targetId = button.dataset.targetId;
-            // const sectionName = button.dataset.sectionName; // Already defined above
             const notesInput = document.getElementById(sourceId);
             const notes = notesInput.value.trim();
             const targetTextarea = document.getElementById(targetId);
@@ -103,43 +150,39 @@ Generated Text:
         });
     });
 
-    // Prepare data for Make.com
+    // --- Prepare data for Make.com ---
     prepareDataBtn.addEventListener('click', () => {
         const reportData = {};
         const allInputs = document.querySelectorAll('input[name^="var_"], select[name^="var_"], textarea[name^="var_"]');
 
         let allRequiredFilled = true;
-        // Define mandatory fields by their ID for easier checking
         const requiredFieldIds = [
             'var_academicYear', 'var_teacherName', 'var_childFullName',
-            'var_teacherGeneralComments', // AI generated part, but field itself should be there
-            // Target 1 is now required, 2 and 3 are optional
+            'var_teacherGeneralComments', // AI generated part, but field should have content
             'var_target1' 
         ];
-         const requiredSelectFieldIds = [ // IDs for required select dropdowns
+         const requiredSelectFieldIds = [
             'var_readingAttainment', 'var_readingEffort',
             'var_writingAttainment', 'var_writingEffort',
             'var_mathematicsAttainment', 'var_mathematicsEffort',
             'var_scienceAttainment', 'var_scienceEffort',
-            // Add other foundation subjects if they are always required
+             // Foundation subjects are generally optional in terms of being *always* graded,
+             // but if a selection is made for attainment, effort might also be expected, and vice-versa.
+             // For simplicity, making core subjects mandatory for grades.
         ];
-
 
         allInputs.forEach(input => {
             if (input.name) {
                 const key = input.name.replace(/^var_/, '');
-                reportData[key] = input.value; // Store value directly, trim later if needed by Make.com
+                reportData[key] = input.value; 
 
-                // Reset border style first
                 input.style.borderColor = ''; 
                 
-                // Check required text/textarea fields
                 if (requiredFieldIds.includes(input.id) && !input.value.trim()) {
                     allRequiredFilled = false;
                     input.style.borderColor = 'red';
                 }
-                // Check required select fields
-                if (requiredSelectFieldIds.includes(input.id) && !input.value) { // For selects, empty value means not selected
+                if (requiredSelectFieldIds.includes(input.id) && !input.value) {
                     allRequiredFilled = false;
                     input.style.borderColor = 'red';
                 }
@@ -149,8 +192,7 @@ Generated Text:
         if (!allRequiredFilled) {
             alert('Please fill in all required fields (highlighted in red or missing subject grades/details).');
             makeComDataOutputSection.style.display = 'none';
-            // Scroll to the first invalid field
-            const firstInvalidField = document.querySelector('input[style*="border-color: red"], select[style*="border-color: red"], textarea[style*="border-color: red"]');
+            const firstInvalidField = document.querySelector('[style*="border-color: red"]');
             if (firstInvalidField) {
                 firstInvalidField.focus();
                 firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -162,5 +204,18 @@ Generated Text:
         makeComDataOutputSection.style.display = 'block';
         makeComDataOutput.scrollIntoView({ behavior: 'smooth', block: 'start' });
         alert("Data prepared for Make.com! Scroll down to view and copy the JSON data.");
+    });
+
+    // Initial styling for select placeholders (if browser supports :placeholder-shown or similar)
+    document.querySelectorAll('.subject-grid select.pt-input').forEach(select => {
+        function styleSelectPlaceholder() {
+            if (select.value === "") {
+                select.classList.add('placeholder-shown');
+            } else {
+                select.classList.remove('placeholder-shown');
+            }
+        }
+        select.addEventListener('change', styleSelectPlaceholder);
+        styleSelectPlaceholder(); // Call on load
     });
 });
