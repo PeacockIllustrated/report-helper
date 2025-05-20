@@ -17,19 +17,19 @@
         <!-- API Key Section -->
         <section class="pt-card">
             <h2 class="pt-card-title">A. Setup & AI Style Reference</h2>
-            <div class="pt-input-group with-save-button">
+            <div class="pt-input-group stacked-save-group"> <!-- Modified for vertical stacking -->
                 <label for="apiKey">OpenAI API Key:</label>
                 <input type="password" id="apiKey" class="pt-input" placeholder="Enter your OpenAI API Key (sk-...)">
-                <button id="saveApiKeyBtn" class="pt-button pt-button--secondary save-inline-btn">Save Key</button>
+                <button id="saveApiKeyBtn" class="pt-button pt-button--secondary save-stacked-btn">Save Key</button>
+                <small class="text-color-muted help-text">Required for AI text generation features. Saved locally in your browser.</small>
             </div>
-            <small class="text-color-muted help-text">Required for AI text generation features. Saved locally in your browser.</small>
             
-            <div class="pt-input-group with-save-button" style="margin-top: 20px;">
+            <div class="pt-input-group stacked-save-group"> <!-- Modified for vertical stacking -->
                 <label for="previousExamples">Your Previous Report Examples (for AI tone & style):</label>
                 <textarea id="previousExamples" class="pt-input" rows="5" placeholder="Paste 1-2 examples of your report writing style here. AI uses this for consistent tone."></textarea>
-                <button id="saveExamplesBtn" class="pt-button pt-button--secondary save-inline-btn">Save Examples</button>
+                <button id="saveExamplesBtn" class="pt-button pt-button--secondary save-stacked-btn">Save Examples</button>
+                <small class="text-color-muted help-text">Saved locally in your browser.</small>
             </div>
-             <small class="text-color-muted help-text">Saved locally in your browser.</small>
         </section>
 
         <!-- Report Cover Information -->
@@ -57,63 +57,63 @@
         <!-- Subject Attainment and Effort -->
         <section class="pt-card">
             <h2 class="pt-card-title">D. Subject Attainment and Effort</h2>
-            <p class="text-color-muted" style="margin-bottom: 15px;">Select attainment and effort for each subject.</p>
+            <p class="text-color-muted" style="margin-bottom: 20px;">Select attainment and effort for each subject.</p>
             <div class="subject-grid">
                 <!-- Core Subjects -->
-                <strong class="grid-header">Core Subjects</strong><div></div><div></div>
+                <strong class="grid-header">Core Subjects</strong> <!-- This will span based on grid definition -->
                 <label for="var_readingAttainment">Reading:</label>
-                <select id="var_readingAttainment" name="var_readingAttainment" class="pt-input subject-grade"><option value="" disabled selected>Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
-                <select id="var_readingEffort" name="var_readingEffort" class="pt-input subject-grade"><option value="" disabled selected>Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+                <select id="var_readingAttainment" name="var_readingAttainment" class="pt-input subject-grade" required><option value="" disabled selected>Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
+                <select id="var_readingEffort" name="var_readingEffort" class="pt-input subject-grade" required><option value="" disabled selected>Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
 
                 <label for="var_writingAttainment">Writing:</label>
-                <select id="var_writingAttainment" name="var_writingAttainment" class="pt-input subject-grade"><option value="" disabled selected>Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
-                <select id="var_writingEffort" name="var_writingEffort" class="pt-input subject-grade"><option value="" disabled selected>Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+                <select id="var_writingAttainment" name="var_writingAttainment" class="pt-input subject-grade" required><option value="" disabled selected>Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
+                <select id="var_writingEffort" name="var_writingEffort" class="pt-input subject-grade" required><option value="" disabled selected>Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
 
                 <label for="var_mathematicsAttainment">Mathematics:</label>
-                <select id="var_mathematicsAttainment" name="var_mathematicsAttainment" class="pt-input subject-grade"><option value="" disabled selected>Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
-                <select id="var_mathematicsEffort" name="var_mathematicsEffort" class="pt-input subject-grade"><option value="" disabled selected>Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+                <select id="var_mathematicsAttainment" name="var_mathematicsAttainment" class="pt-input subject-grade" required><option value="" disabled selected>Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
+                <select id="var_mathematicsEffort" name="var_mathematicsEffort" class="pt-input subject-grade" required><option value="" disabled selected>Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
 
                 <label for="var_scienceAttainment">Science:</label>
-                <select id="var_scienceAttainment" name="var_scienceAttainment" class="pt-input subject-grade"><option value="" disabled selected>Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
-                <select id="var_scienceEffort" name="var_scienceEffort" class="pt-input subject-grade"><option value="" disabled selected>Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+                <select id="var_scienceAttainment" name="var_scienceAttainment" class="pt-input subject-grade" required><option value="" disabled selected>Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
+                <select id="var_scienceEffort" name="var_scienceEffort" class="pt-input subject-grade" required><option value="" disabled selected>Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
                 
                 <!-- Foundation Subjects -->
-                <strong class="grid-header">Foundation Subjects</strong><div></div><div></div>
+                <strong class="grid-header">Foundation Subjects</strong>
                 <label for="var_artAttainment">Art:</label>
-                <select id="var_artAttainment" name="var_artAttainment" class="pt-input subject-grade"><option value="" disabled selected>Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
-                <select id="var_artEffort" name="var_artEffort" class="pt-input subject-grade"><option value="" disabled selected>Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+                <select id="var_artAttainment" name="var_artAttainment" class="pt-input subject-grade" required><option value="" disabled selected>Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
+                <select id="var_artEffort" name="var_artEffort" class="pt-input subject-grade" required><option value="" disabled selected>Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
 
                 <label for="var_computingAttainment">Computing:</label>
-                <select id="var_computingAttainment" name="var_computingAttainment" class="pt-input subject-grade"><option value="" disabled selected>Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
-                <select id="var_computingEffort" name="var_computingEffort" class="pt-input subject-grade"><option value="" disabled selected>Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+                <select id="var_computingAttainment" name="var_computingAttainment" class="pt-input subject-grade" required><option value="" disabled selected>Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
+                <select id="var_computingEffort" name="var_computingEffort" class="pt-input subject-grade" required><option value="" disabled selected>Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
 
                 <label for="var_designTechnologyAttainment">Design & Technology:</label>
-                <select id="var_designTechnologyAttainment" name="var_designTechnologyAttainment" class="pt-input subject-grade"><option value="" disabled selected>Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
-                <select id="var_designTechnologyEffort" name="var_designTechnologyEffort" class="pt-input subject-grade"><option value="" disabled selected>Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+                <select id="var_designTechnologyAttainment" name="var_designTechnologyAttainment" class="pt-input subject-grade" required><option value="" disabled selected>Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
+                <select id="var_designTechnologyEffort" name="var_designTechnologyEffort" class="pt-input subject-grade" required><option value="" disabled selected>Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
 
                 <label for="var_frenchAttainment">French (Y3-6 only):</label>
                 <select id="var_frenchAttainment" name="var_frenchAttainment" class="pt-input subject-grade"><option value="" disabled selected>Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option><option value="N/A">N/A</option></select>
                 <select id="var_frenchEffort" name="var_frenchEffort" class="pt-input subject-grade"><option value="" disabled selected>Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="N/A">N/A</option></select>
 
                 <label for="var_geographyAttainment">Geography:</label>
-                <select id="var_geographyAttainment" name="var_geographyAttainment" class="pt-input subject-grade"><option value="" disabled selected>Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
-                <select id="var_geographyEffort" name="var_geographyEffort" class="pt-input subject-grade"><option value="" disabled selected>Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+                <select id="var_geographyAttainment" name="var_geographyAttainment" class="pt-input subject-grade" required><option value="" disabled selected>Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
+                <select id="var_geographyEffort" name="var_geographyEffort" class="pt-input subject-grade" required><option value="" disabled selected>Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
 
                 <label for="var_historyAttainment">History:</label>
-                <select id="var_historyAttainment" name="var_historyAttainment" class="pt-input subject-grade"><option value="" disabled selected>Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
-                <select id="var_historyEffort" name="var_historyEffort" class="pt-input subject-grade"><option value="" disabled selected>Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+                <select id="var_historyAttainment" name="var_historyAttainment" class="pt-input subject-grade" required><option value="" disabled selected>Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
+                <select id="var_historyEffort" name="var_historyEffort" class="pt-input subject-grade" required><option value="" disabled selected>Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
 
                 <label for="var_musicAttainment">Music:</label>
-                <select id="var_musicAttainment" name="var_musicAttainment" class="pt-input subject-grade"><option value="" disabled selected>Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
-                <select id="var_musicEffort" name="var_musicEffort" class="pt-input subject-grade"><option value="" disabled selected>Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+                <select id="var_musicAttainment" name="var_musicAttainment" class="pt-input subject-grade" required><option value="" disabled selected>Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
+                <select id="var_musicEffort" name="var_musicEffort" class="pt-input subject-grade" required><option value="" disabled selected>Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
 
                 <label for="var_physicalEducationAttainment">Physical Education:</label>
-                <select id="var_physicalEducationAttainment" name="var_physicalEducationAttainment" class="pt-input subject-grade"><option value="" disabled selected>Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
-                <select id="var_physicalEducationEffort" name="var_physicalEducationEffort" class="pt-input subject-grade"><option value="" disabled selected>Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+                <select id="var_physicalEducationAttainment" name="var_physicalEducationAttainment" class="pt-input subject-grade" required><option value="" disabled selected>Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
+                <select id="var_physicalEducationEffort" name="var_physicalEducationEffort" class="pt-input subject-grade" required><option value="" disabled selected>Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
 
                 <label for="var_religiousEducationAttainment">Religious Education:</label>
-                <select id="var_religiousEducationAttainment" name="var_religiousEducationAttainment" class="pt-input subject-grade"><option value="" disabled selected>Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
-                <select id="var_religiousEducationEffort" name="var_religiousEducationEffort" class="pt-input subject-grade"><option value="" disabled selected>Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+                <select id="var_religiousEducationAttainment" name="var_religiousEducationAttainment" class="pt-input subject-grade" required><option value="" disabled selected>Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
+                <select id="var_religiousEducationEffort" name="var_religiousEducationEffort" class="pt-input subject-grade" required><option value="" disabled selected>Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
             </div>
         </section>
 
@@ -182,8 +182,10 @@
             <!-- Pupil's Comments (Direct Input) -->
             <div class="report-sub-section">
                 <h3 class="sub-section-title">Pupil's Comments (Optional)</h3>
-                <label for="var_pupilComments">Enter Pupil's Comments directly:</label>
-                <textarea id="var_pupilComments" name="var_pupilComments" class="pt-input" rows="4" placeholder="e.g., I love to read books in the library area..."></textarea>
+                <div class="pt-input-group"> <!-- Added pt-input-group for consistency -->
+                    <label for="var_pupilComments">Enter Pupil's Comments directly:</label>
+                    <textarea id="var_pupilComments" name="var_pupilComments" class="pt-input" rows="4" placeholder="e.g., I love to read books in the library area..."></textarea>
+                </div>
             </div>
         </section>
 
