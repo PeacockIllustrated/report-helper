@@ -63,7 +63,6 @@ section.pt-card {
 
 .pt-input-group {
     margin-bottom: 20px;
-    /* position: relative; Removed as stacking group handles button differently */
 }
 
 /* Styles for vertical stacking in Section A */
@@ -73,20 +72,19 @@ section.pt-card {
 }
 .stacked-save-group > .pt-input,
 .stacked-save-group > textarea.pt-input {
-    width: 100%; /* Ensure input takes full width */
-    margin-bottom: 10px; /* Space before button */
+    width: 100%;
+    margin-bottom: 10px;
 }
 .save-stacked-btn {
-    padding: 8px 15px; /* Standard button padding from theme */
-    font-size: 0.9em;   /* Slightly smaller */
+    padding: 8px 15px;
+    font-size: 0.9em;
     line-height: 1.5;
-    margin-bottom: 5px; /* Space before help text */
-    display: inline-block; /* Or block if you want it full width */
-    /* align-self: flex-start; Removed as parent is not flex */
+    margin-bottom: 5px;
+    display: inline-block;
 }
 .stacked-save-group > .help-text {
     margin-top: 0;
-    display: block; /* Ensure help text is on its own line */
+    display: block;
 }
 
 
@@ -194,20 +192,20 @@ textarea#previousExamples.pt-input {
 /* Subject Grid Styling */
 .subject-grid {
     display: grid;
-    grid-template-columns: max-content 1fr 1fr; /* Label takes space it needs, selects share rest */
-    gap: 8px 12px; /* row-gap column-gap */
-    align-items: center; /* Vertically align items in each row */
+    grid-template-columns: max-content 1fr 1fr; /* Label, Attainment, Effort */
+    gap: 10px 15px; /* row-gap column-gap */
+    align-items: center;
     margin-bottom: 20px;
 }
-.subject-grid label { /* For subject name labels like "Reading:" */
-    font-weight: 400; /* As per original label style */
-    text-align: left; /* Align label text to the left */
-    padding-right: 10px; /* Space between label and first select */
-    font-size: 0.9em; /* Consistent font size */
-    justify-self: start; /* Align the label cell to the start (left) */
+.subject-grid label {
+    font-weight: 400;
+    text-align: left; /* Changed from right for better flow */
+    padding-right: 10px;
+    font-size: 0.9em;
+    justify-self: start; /* Ensures label aligns to the start of its grid cell */
 }
 .subject-grid .grid-header {
-    grid-column: 1 / -1; /* Header spans all 3 columns */
+    grid-column: 1 / -1;
     font-family: var(--font-family-headings, 'Montserrat', sans-serif);
     font-weight: 600;
     font-size: 1.05em;
@@ -221,20 +219,17 @@ textarea#previousExamples.pt-input {
 .subject-grid .pt-input.subject-grade {
     padding: 8px 10px;
     font-size: 0.9em;
+    width: 100%; /* Ensure selects take full width of their column */
 }
 select.pt-input.subject-grade:required:invalid,
-select.pt-input.subject-grade.placeholder-shown { /* Added class for JS fallback */
-    color: var(--text-color-muted, #7A7F89); /* Placeholder text color */
+select.pt-input.subject-grade.placeholder-shown {
+    color: var(--text-color-muted, #7A7F89);
 }
 select.pt-input.subject-grade {
-    color: var(--text-color); /* Normal text color when an option is selected */
-}
-select.pt-input.subject-grade option[value=""] {
-    /* This might not be visible in all browsers for the first option */
-    /* color: var(--text-color-muted); */ 
+    color: var(--text-color);
 }
 select.pt-input.subject-grade option {
-  color: var(--text-color); /* Ensure options are normally colored */
+  color: var(--text-color);
 }
 
 
@@ -336,4 +331,48 @@ select.pt-input {
     background-position: right 12px center;
     background-size: .65em auto;
     padding-right: 30px;
+}
+
+
+/* --- MOBILE BREAKPOINT --- */
+@media (max-width: 768px) {
+    .subject-grid {
+        grid-template-columns: 1fr; /* Single column for stacking */
+        gap: 5px 0; /* Reduce row gap, no column gap */
+    }
+
+    .subject-grid label {
+        text-align: left; /* Ensure label is left-aligned */
+        margin-bottom: 3px; /* Small space below label */
+        justify-self: stretch; /* Make label take full width available in its cell */
+        padding-right: 0; /* No padding needed if full width */
+        /* Explicitly set grid column if it was causing issues, though 1fr should handle it */
+        /* grid-column: 1 / -1; */ /* Not typically needed for single column items */
+    }
+
+    .subject-grid .pt-input.subject-grade {
+        width: 100%; /* Selects take full width */
+        margin-bottom: 8px; /* Space below each select */
+    }
+    
+    /* Ensure the last select in a "row" (now stacked group) doesn't have extra margin if not needed */
+    .subject-grid .pt-input.subject-grade:last-of-type {
+         margin-bottom: 15px; /* Space before next subject label */
+    }
+
+
+    .subject-grid .grid-header {
+        margin-top: 25px; /* More space before group header on mobile */
+        margin-bottom: 15px;
+    }
+
+    .stacked-save-group {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Align button to left */
+    }
+    .save-stacked-btn {
+        width: auto; /* Allow button to size to content */
+        align-self: flex-start; /* Align button to the left */
+    }
 }
