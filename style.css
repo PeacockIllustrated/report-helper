@@ -14,7 +14,7 @@ body {
 }
 
 .container {
-    max-width: 850px; /* Adjusted for a slightly wider form */
+    max-width: 850px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -41,7 +41,7 @@ header p.text-color-muted {
     margin-right: auto;
 }
 
-section.pt-card { /* Specific to sections that are cards */
+section.pt-card {
   padding: 25px 30px;
   margin-bottom: 30px;
   background-color: var(--surface-main, #FFFFFF);
@@ -50,13 +50,15 @@ section.pt-card { /* Specific to sections that are cards */
   border-radius: var(--border-radius-lg, 4px);
 }
 
-.pt-card-title { /* General card title styling */
+.pt-card-title {
   margin-top: 0;
   margin-bottom: 25px;
-  font-size: 1.2em;
-  font-weight: 400; /* Montserrat Regular */
-  letter-spacing: 1px;
+  font-size: 1.3em; /* Slightly larger card titles */
+  font-weight: 500; /* Montserrat Medium */
+  letter-spacing: 0.8px;
   color: var(--primary-brand-color);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-color-light);
 }
 
 .pt-input-group {
@@ -67,7 +69,7 @@ section.pt-card { /* Specific to sections that are cards */
     display: block;
     margin-bottom: 8px;
     font-family: var(--font-family-headings, 'Montserrat', sans-serif);
-    font-weight: 500; /* Montserrat Medium */
+    font-weight: 500;
     text-transform: none;
     font-size: 0.9em;
     letter-spacing: 0.2px;
@@ -80,13 +82,13 @@ select.pt-input {
     width: 100%;
     padding: 10px 12px;
     font-family: var(--font-family-primary, 'Raleway', sans-serif);
-    font-weight: 300; /* Raleway Light */
+    font-weight: 300;
     font-size: 0.95em;
     border-radius: var(--border-radius-md, 3px);
     line-height: 1.5;
     border: 1px solid var(--border-color, #D1D3D6);
-    background-color: var(--surface-main); /* Ensure consistent background */
-    color: var(--text-color); /* Ensure consistent text color */
+    background-color: var(--surface-main);
+    color: var(--text-color);
 }
 .pt-input:focus,
 textarea.pt-input:focus,
@@ -95,9 +97,8 @@ select.pt-input:focus {
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-color-main) 20%, transparent);
 }
 
-
 textarea.pt-input {
-    min-height: 80px; /* Default min height for textareas */
+    min-height: 80px;
 }
 textarea#previousExamples.pt-input {
     min-height: 100px;
@@ -124,7 +125,7 @@ textarea#previousExamples.pt-input {
 
 #action-section {
     margin-bottom: 30px;
-    margin-top: 10px; /* Add some space above action button */
+    margin-top: 10px;
 }
 
 .pt-button--lg {
@@ -161,97 +162,113 @@ textarea#previousExamples.pt-input {
 /* Subject Grid Styling */
 .subject-grid {
     display: grid;
-    grid-template-columns: auto 1fr 1fr; /* Label, Attainment Select, Effort Select */
-    gap: 10px 15px; /* row-gap column-gap */
+    grid-template-columns: auto 1fr 1fr;
+    gap: 10px 15px;
     align-items: center;
     margin-bottom: 20px;
 }
-.subject-grid label {
-    font-weight: 500; /* From .pt-input-group label */
-    text-align: right; /* Align subject names to the right for neatness */
-    padding-right: 5px; /* Space between label and select */
-    font-size: 0.9em; /* Consistent with other labels */
+.subject-grid label { /* For subject name labels */
+    font-weight: 400; /* Slightly less bold than main group labels */
+    text-align: right;
+    padding-right: 5px;
+    font-size: 0.9em;
 }
 .subject-grid .grid-header {
-    grid-column: 1 / -1; /* Span all columns */
+    grid-column: 1 / -1;
     font-family: var(--font-family-headings, 'Montserrat', sans-serif);
-    font-weight: 600; /* Bolder for header */
+    font-weight: 600;
     font-size: 1.05em;
     color: var(--primary-brand-color);
-    margin-top: 20px; /* Space above new subject group */
+    margin-top: 20px;
     margin-bottom: 10px;
     padding-bottom: 8px;
-    border-bottom: 1px solid var(--border-color-light);
-    text-align: left; /* Align header text to left */
+    border-bottom: 1px solid var(--border-color); /* Stronger border */
+    text-align: left;
 }
 .subject-grid .pt-input.subject-grade {
-    padding: 8px 10px; /* Slightly smaller padding for these selects */
-    font-size: 0.9em; /* Slightly smaller font for grades */
+    padding: 8px 10px;
+    font-size: 0.9em;
 }
 
-/* AI Assisted Section Styling */
-.ai-section {
-    padding: 20px;
-    border: 1px solid var(--border-color-light);
-    border-radius: var(--border-radius-md);
+/* Sub-section styling within a card */
+.report-sub-section {
+    padding: 15px 0; /* Add some vertical padding */
     margin-bottom: 25px;
-    background-color: var(--surface-color-alt, #F4F5F6); /* Subtle background from theme */
+    border-bottom: 1px dashed var(--border-color-light); /* Separator for sub-sections */
 }
-.ai-section label { /* Label for the notes textarea */
-    font-weight: 400; /* Less bold for notes label */
+.report-sub-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.sub-section-title {
+    font-family: var(--font-family-headings, 'Montserrat', sans-serif);
+    font-size: 1.1em; /* More prominent */
+    font-weight: 500; /* Bolder than standard label */
+    color: var(--primary-brand-color);
+    margin-top: 0; /* Remove default h3 margin */
+    margin-bottom: 15px; /* Space below title */
+}
+
+/* AI Input Group within a sub-section */
+.ai-input-group {
+    padding: 10px;
+    border: 1px solid var(--border-color-light);
+    border-radius: var(--border-radius-sm);
+    background-color: color-mix(in srgb, var(--surface-color-alt) 30%, transparent); /* Very subtle bg */
+    margin-bottom: 15px;
+}
+.ai-input-group label { /* Label for the notes textarea */
+    font-weight: 400;
     font-size: 0.85em;
     color: var(--text-color-muted);
     margin-bottom: 5px;
 }
-.ai-section .notes-input {
+.ai-input-group .notes-input {
     margin-bottom: 10px;
-    background-color: var(--surface-main); /* Ensure notes input area is white */
-    min-height: 60px; /* Adjust as needed */
+    background-color: var(--surface-main);
+    min-height: 60px;
 }
-.ai-section .generate-ai-text-btn {
-    margin-bottom: 15px;
+.ai-input-group .generate-ai-text-btn {
+    margin-bottom: 0; /* No margin if it's the last element in this group */
     font-size: 0.9em;
-    padding: var(--button-padding-y) var(--button-padding-x); /* Use theme button padding variables */
-    /* Uses .pt-button--secondary from theme by default */
+    padding: var(--button-padding-y) var(--button-padding-x);
 }
-.ai-section .final-output-label {
+
+/* Label for the final AI output textarea */
+.final-output-label {
     display: block;
-    margin-top: 15px; /* Space above the final output textarea label */
+    margin-top: 15px;
     margin-bottom: 5px;
     font-family: var(--font-family-headings, 'Montserrat', sans-serif);
-    font-weight: 500 !important; /* Ensure it overrides general label style */
+    font-weight: 500 !important;
     font-size: 0.9em !important;
     color: var(--primary-brand-color) !important;
 }
-.ai-section .final-text-output {
-    background-color: color-mix(in srgb, var(--accent-color-light) 10%, var(--surface-main)); /* Very light accent tint */
-    border: 1px solid var(--accent-color-light); /* Subtle accent border */
-    min-height: 100px; /* Good default height for generated comments */
+.final-text-output { /* The textarea for AI generated text */
+    background-color: color-mix(in srgb, var(--accent-color-light) 10%, var(--surface-main));
+    border: 1px solid var(--accent-color-light);
+    min-height: 100px;
 }
-.ai-section textarea#var_targetsYearAhead.final-text-output {
-    min-height: 70px; /* Targets might be shorter */
-}
-
 
 /* Make.com Data Output Styling */
 #makeComDataOutputSection {
     margin-top: 30px;
 }
-#makeComDataOutput {
+#makeComDataOutput.report-output-area { /* Ensure it inherits any .report-output-area styles if needed */
     background-color: var(--neutral-extralight);
     border: 1px solid var(--border-color);
     padding: 15px 20px;
     font-size: 0.85em;
     line-height: 1.5;
-    white-space: pre-wrap; /* Preserve formatting of JSON */
-    word-break: break-all; /* Allow long strings to break */
+    white-space: pre-wrap;
+    word-break: break-all;
     border-radius: var(--border-radius-md);
     max-height: 400px;
     overflow-y: auto;
     color: var(--text-color-on-surface);
 }
 
-/* Footer */
 footer {
     margin-top: 50px;
     padding-top: 20px;
@@ -264,7 +281,6 @@ footer {
     text-align: center;
 }
 
-/* Select dropdown arrow styling (from previous iteration, good for theme consistency) */
 select.pt-input {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -273,5 +289,5 @@ select.pt-input {
     background-repeat: no-repeat;
     background-position: right 12px center;
     background-size: .65em auto;
-    padding-right: 30px; /* Make space for the arrow */
+    padding-right: 30px;
 }
