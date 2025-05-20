@@ -3,41 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher's Report Helper</title>
+    <title>Teacher's Report Generator</title>
     <link rel="stylesheet" href="theme-luxe-minimalist.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="theme-luxe-minimalist">
     <div class="container">
         <header>
-            <h1 class="pt-sidebar__logo app-title">Teacher's Report Helper</h1>
-            <p class="text-color-muted">Generate personalized student reports with AI, reflecting your unique style and insights.</p>
+            <h1 class="pt-sidebar__logo app-title">Teacher's Report Generator</h1>
+            <p class="text-color-muted">Easily create professionally structured student reports.</p>
         </header>
 
         <section class="pt-card" id="api-key-section">
-            <h2 class="pt-card-title">1. Setup: OpenAI API Key</h2>
+            <h2 class="pt-card-title">1. Setup</h2>
             <div class="pt-input-group">
                 <label for="apiKey">OpenAI API Key:</label>
                 <input type="password" id="apiKey" class="pt-input" placeholder="Enter your OpenAI API Key (sk-...)">
-                <small class="text-color-muted help-text">Your API key is used directly in your browser to communicate with OpenAI and is not stored by this application.</small>
+                <small class="text-color-muted help-text">Your API key is used directly to communicate with OpenAI.</small>
             </div>
         </section>
 
         <section class="pt-card" id="input-section">
-            <h2 class="pt-card-title">2. Input Report Details</h2>
+            <h2 class="pt-card-title">2. Student & Report Details</h2>
+            <div class="grid-2-col">
+                <div class="pt-input-group">
+                    <label for="childName">Child's Full Name:</label>
+                    <input type="text" id="childName" class="pt-input" placeholder="e.g., Alfie Burns">
+                </div>
+                <div class="pt-input-group">
+                    <label for="academicYear">Academic Year:</label>
+                    <input type="text" id="academicYear" class="pt-input" placeholder="e.g., 2024/25" value="2024/25">
+                </div>
+            </div>
             <div class="pt-input-group">
-                <label for="shorthandReport">Current Shorthand Notes (for the child):</label>
-                <textarea id="shorthandReport" class="pt-input" rows="6" placeholder="e.g., Excels in math problem-solving, participates well in discussions, needs encouragement for group tasks, very creative in art. Shows progress in reading fluency."></textarea>
+                <label for="teacherName">Teacher's Name (with title):</label>
+                <input type="text" id="teacherName" class="pt-input" placeholder="e.g., Miss Schofield, Mrs Peacock">
             </div>
 
             <div class="pt-input-group">
-                <label for="previousTemplates">Previous Report Examples/Templates (for tone & style):</label>
-                <textarea id="previousTemplates" class="pt-input" rows="10" placeholder="Paste 1-3 examples of your previous reports here. The AI will learn your writing style, tone, and common phrasing from these. Separate distinct examples with a line like '---NEXT EXAMPLE---' or just ensure they are clearly paragraphed."></textarea>
+                <label for="academicPerformanceNotes">Academic Performance Notes (Key achievements, progress, areas for development across subjects):</label>
+                <textarea id="academicPerformanceNotes" class="pt-input" rows="8" placeholder="e.g., Alfie has shown excellent progress in reading, confidently tackling new texts. He applies phonic knowledge well. In Maths, he enjoys problem-solving... Needs to focus on handwriting neatness. Participates well in Science discussions..."></textarea>
+            </div>
+
+            <div class="grid-2-col">
+                <div class="pt-input-group">
+                    <label for="attendanceRating">Attendance Rating:</label>
+                    <select id="attendanceRating" class="pt-input">
+                        <option value="Excellent (99% or 100%)">Excellent (99% or 100%)</option>
+                        <option value="Good (96% and above)">Good (96% and above)</option>
+                        <option value="Below School Expectations (95% or below)">Below School Expectations (95% or below)</option>
+                        <option value="Cause for concern (below 91%)">Cause for concern (below 91%)</option>
+                    </select>
+                </div>
+                <div class="pt-input-group">
+                    <label for="punctualityRating">Punctuality Rating:</label>
+                    <select id="punctualityRating" class="pt-input">
+                        <option value="Always in school on time.">Always in school on time.</option>
+                        <option value="Occasionally late (no more than 5 sessions).">Occasionally late (no more than 5 sessions).</option>
+                        <option value="Frequently late for school (between 6 & 10 sessions).">Frequently late (between 6 & 10 sessions).</option>
+                        <option value="11 or more late sessions.">11 or more late sessions.</option>
+                    </select>
+                </div>
+            </div>
+             <div class="pt-input-group">
+                <label for="attendancePunctualityNotes">Optional Attendance/Punctuality Notes:</label>
+                <input type="text" id="attendancePunctualityNotes" class="pt-input" placeholder="e.g., Any absences were authorized.">
+            </div>
+
+
+            <div class="pt-input-group">
+                <label for="teacherGeneralComments">Teacher's General Comments (Overall progress, personality, social skills, etc.):</label>
+                <textarea id="teacherGeneralComments" class="pt-input" rows="10" placeholder="e.g., Alfie is a sensitive little boy who has matured into a very polite young man... He has developed an excellent attitude towards school..."></textarea>
             </div>
 
             <div class="pt-input-group">
-                <label for="personalNotes">Teacher's Personal Notes & Experiences (about this child):</label>
-                <textarea id="personalNotes" class="pt-input" rows="6" placeholder="e.g., Responded very well to positive reinforcement regarding teamwork. Showed unexpected leadership during the science fair project. Has a quiet demeanor but offers remarkably insightful comments when comfortable. Passionate about history."></textarea>
+                <label for="targetsYearAhead">Targets for the Year Ahead (List 2-3 key targets):</label>
+                <textarea id="targetsYearAhead" class="pt-input" rows="5" placeholder="e.g., To take greater care in the presentation of his work.
+To read with expression.
+To believe in yourself and realise how amazing you are!"></textarea>
+            </div>
+
+            <div class="pt-input-group">
+                <label for="pupilComments">Pupil's Comments (Optional - what the child says about their year/learning):</label>
+                <textarea id="pupilComments" class="pt-input" rows="4" placeholder="e.g., I love to read books in the library area... I like building things... When I grow up I want to be a..."></textarea>
+            </div>
+
+             <div class="pt-input-group">
+                <label for="headteacherComments">Head Teacher's Comments (Optional):</label>
+                <textarea id="headteacherComments" class="pt-input" rows="4" placeholder="Enter Head Teacher's comments if available."></textarea>
+            </div>
+
+            <div class="pt-input-group">
+                <label for="previousExamples">Your Previous Report Examples (for tone & style consistency - paste 1-2 examples):</label>
+                <textarea id="previousExamples" class="pt-input" rows="8" placeholder="Paste examples of your report writing style here. This helps the AI match your tone."></textarea>
             </div>
         </section>
 
@@ -56,19 +114,89 @@
             </div>
         </section>
 
-        <section class="pt-card" id="output-section" style="display: none;">
-            <h2 class="pt-card-title">3. Generated Report</h2>
-            <div id="generatedReportOutput" class="report-output-area">
-                <!-- Report will be displayed here -->
+        <section id="output-section-container" style="display: none;">
+             <h2 class="pt-card-title text-center" style="margin-bottom: 10px;">Generated Report Preview</h2>
+            <div id="reportOutputWrapper" class="report-output-wrapper pt-card">
+                <!-- This div will simulate the A4 page -->
+                <div class="report-page-view">
+                    <!-- Cover Page Info -->
+                    <div class="report-section text-center" id="outputCoverInfo">
+                        <div class="school-logo-placeholder">
+                            <!-- You can place an <img> tag here if you have a logo URL -->
+                            JARROW CROSS CHURCH OF ENGLAND SCHOOL (Logo Placeholder)
+                        </div>
+                        <p>End of Year Report</p>
+                        <h2 id="outputAcademicYear" class="report-year"></h2>
+                        <h3 id="outputTeacherName" class="report-teacher"></h3>
+                    </div>
+
+                    <!-- Name of Child -->
+                    <div class="report-section" id="outputChildNameSection">
+                        <h3 class="section-title-box"><span id="outputChildName"></span></h3>
+                    </div>
+
+                    <!-- Subject Attainment and Effort -->
+                    <div class="report-section" id="outputSubjectAttainmentSection">
+                        <h4 class="section-title-underline">Subject Attainment and Effort</h4>
+                        <div id="outputSubjectNarrative" class="narrative-text"></div>
+                        <p class="text-color-muted small-text" style="margin-top: 15px;">
+                            Pupil's Attainment is graded in the following bands: Greater Depth (GDS), Expected (EXS), Working Towards (WTS), Below (BLW).
+                            <br>Pupil's effort is graded as follows: 1 Outstanding, 2 Good, 3 Requires improvement.
+                            <br><em style="font-size:0.9em;">(Note: The AI generates a narrative summary. Specific grading for each subject as per the table in the reference document would require manual input or a more complex system.)</em>
+                        </p>
+                    </div>
+
+                    <!-- Attendance and Punctuality -->
+                    <div class="report-section" id="outputAttendancePunctualitySection">
+                        <h4 class="section-title-underline">Attendance and Punctuality <span class="date-note">*Up to [Current Date approx.]</span></h4>
+                        <div class="grid-2-col modern-table-look">
+                            <div><strong>Attendance:</strong> <span id="outputAttendanceRatingText"></span></div>
+                            <div><strong>Punctuality:</strong> <span id="outputPunctualityRatingText"></span></div>
+                        </div>
+                        <div id="outputAttendancePunctualityNotesText" class="narrative-text small-text"></div>
+                    </div>
+                    
+                    <!-- Teacher's General Comments -->
+                    <div class="report-section" id="outputTeacherCommentsSection">
+                        <h4 class="section-title-underline">Teacher's general comments</h4>
+                        <div id="outputTeacherComments" class="narrative-text"></div>
+                    </div>
+
+                    <!-- Targets for the year ahead -->
+                    <div class="report-section" id="outputTargetsSection">
+                        <h4 class="section-title-underline">Targets for the year ahead:</h4>
+                        <ul id="outputTargetsList" class="narrative-text target-list"></ul>
+                    </div>
+
+                    <!-- Pupil's Comments -->
+                    <div class="report-section" id="outputPupilCommentsSection" style="display: none;">
+                        <h4 class="section-title-underline">Pupil's comments</h4>
+                        <div id="outputPupilComments" class="narrative-text"></div>
+                    </div>
+                    
+                    <!-- Head Teacher's Comments -->
+                    <div class="report-section" id="outputHeadteacherCommentsSection" style="display: none;">
+                        <h4 class="section-title-underline">Head teacher's comments</h4>
+                        <div id="outputHeadteacherComments" class="narrative-text"></div>
+                    </div>
+
+                    <!-- Signatures -->
+                    <div class="report-section signature-section">
+                        <div class="signature-line">Signed: _________________________ (Class teacher)</div>
+                        <div class="signature-line">Signed: _________________________ (Head teacher)</div>
+                    </div>
+                </div>
             </div>
-             <button id="copyReportBtn" class="pt-button pt-button--secondary copy-button" style="margin-top: 15px; display:none;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16" style="margin-right: 5px; vertical-align: text-bottom;">
-                  <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
-                  <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
-                </svg>
-                Copy Report
-            </button>
-            <span id="copyFeedback" class="copy-feedback" style="margin-left: 10px; display: none;">Copied!</span>
+            <div class="text-center" style="margin-top: 20px;">
+                <button id="copyReportBtn" class="pt-button pt-button--secondary copy-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16" style="margin-right: 5px; vertical-align: text-bottom;">
+                      <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                      <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                    </svg>
+                    Copy Full Report Text
+                </button>
+                <span id="copyFeedback" class="copy-feedback" style="margin-left: 10px; display: none;">Copied!</span>
+            </div>
         </section>
 
         <footer>
