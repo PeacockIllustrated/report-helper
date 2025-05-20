@@ -53,8 +53,8 @@ section.pt-card {
 .pt-card-title {
   margin-top: 0;
   margin-bottom: 25px;
-  font-size: 1.3em; /* Slightly larger card titles */
-  font-weight: 500; /* Montserrat Medium */
+  font-size: 1.3em;
+  font-weight: 500;
   letter-spacing: 0.8px;
   color: var(--primary-brand-color);
   padding-bottom: 10px;
@@ -63,7 +63,30 @@ section.pt-card {
 
 .pt-input-group {
     margin-bottom: 20px;
+    position: relative; /* For positioning inline save button if needed */
 }
+
+.pt-input-group.with-save-button {
+    display: flex;
+    align-items: flex-end; /* Aligns input/textarea and button along their bottom edge */
+    gap: 10px;
+}
+.pt-input-group.with-save-button > label {
+    flex-basis: 100%; /* Make label take full width above input/textarea */
+}
+.pt-input-group.with-save-button > .pt-input,
+.pt-input-group.with-save-button > textarea.pt-input {
+    flex-grow: 1; /* Input/textarea takes available space */
+}
+.save-inline-btn {
+    padding: 8px 12px; /* Adjust padding for smaller button */
+    font-size: 0.85em;
+    height: fit-content; /* Adjust height to match input field */
+    line-height: 1.5; /* Match input line height */
+    margin-bottom: 0; /* Align with bottom of input */
+    flex-shrink: 0; /* Prevent button from shrinking */
+}
+
 
 .pt-input-group label {
     display: block;
@@ -113,7 +136,7 @@ textarea#previousExamples.pt-input {
 .help-text {
     font-size: 0.8em;
     display: block;
-    margin-top: 8px;
+    margin-top: 5px; /* Reduced margin for help text under save buttons */
     font-family: var(--font-family-primary, 'Raleway', sans-serif);
     font-weight: 300;
     color: var(--text-color-muted);
@@ -133,7 +156,7 @@ textarea#previousExamples.pt-input {
     font-size: 1.05em;
 }
 
-.loading-text {
+.loading-text, .save-feedback {
     margin-top: 15px;
     color: var(--accent-color-main, #B08D57);
     font-family: var(--font-family-headings, 'Montserrat', sans-serif);
@@ -143,6 +166,13 @@ textarea#previousExamples.pt-input {
     align-items: center;
     justify-content: center;
 }
+.save-feedback.success {
+    color: var(--success-color, var(--accent-color-main)); /* Theme success or accent */
+}
+.save-feedback.error {
+    color: var(--error-color, #731D1D);
+}
+
 
 .spinner {
     border: 3px solid var(--neutral-light, #D1D3D6);
@@ -167,8 +197,8 @@ textarea#previousExamples.pt-input {
     align-items: center;
     margin-bottom: 20px;
 }
-.subject-grid label { /* For subject name labels */
-    font-weight: 400; /* Slightly less bold than main group labels */
+.subject-grid label {
+    font-weight: 400;
     text-align: right;
     padding-right: 5px;
     font-size: 0.9em;
@@ -182,19 +212,28 @@ textarea#previousExamples.pt-input {
     margin-top: 20px;
     margin-bottom: 10px;
     padding-bottom: 8px;
-    border-bottom: 1px solid var(--border-color); /* Stronger border */
+    border-bottom: 1px solid var(--border-color);
     text-align: left;
 }
 .subject-grid .pt-input.subject-grade {
     padding: 8px 10px;
     font-size: 0.9em;
 }
+/* Style for select when placeholder is shown */
+.subject-grid select.pt-input:invalid,
+.subject-grid select.pt-input option[value=""] {
+    color: var(--text-color-muted, #7A7F89); /* Light color for placeholder */
+}
+.subject-grid select.pt-input {
+    color: var(--text-color); /* Normal color once an option is selected */
+}
+
 
 /* Sub-section styling within a card */
 .report-sub-section {
-    padding: 15px 0; /* Add some vertical padding */
+    padding: 15px 0;
     margin-bottom: 25px;
-    border-bottom: 1px dashed var(--border-color-light); /* Separator for sub-sections */
+    border-bottom: 1px dashed var(--border-color-light);
 }
 .report-sub-section:last-child {
     border-bottom: none;
@@ -203,11 +242,11 @@ textarea#previousExamples.pt-input {
 
 .sub-section-title {
     font-family: var(--font-family-headings, 'Montserrat', sans-serif);
-    font-size: 1.1em; /* More prominent */
-    font-weight: 500; /* Bolder than standard label */
+    font-size: 1.1em;
+    font-weight: 500;
     color: var(--primary-brand-color);
-    margin-top: 0; /* Remove default h3 margin */
-    margin-bottom: 15px; /* Space below title */
+    margin-top: 0;
+    margin-bottom: 15px;
 }
 
 /* AI Input Group within a sub-section */
@@ -215,10 +254,10 @@ textarea#previousExamples.pt-input {
     padding: 10px;
     border: 1px solid var(--border-color-light);
     border-radius: var(--border-radius-sm);
-    background-color: color-mix(in srgb, var(--surface-color-alt) 30%, transparent); /* Very subtle bg */
+    background-color: color-mix(in srgb, var(--surface-color-alt) 30%, transparent);
     margin-bottom: 15px;
 }
-.ai-input-group label { /* Label for the notes textarea */
+.ai-input-group label {
     font-weight: 400;
     font-size: 0.85em;
     color: var(--text-color-muted);
@@ -230,12 +269,11 @@ textarea#previousExamples.pt-input {
     min-height: 60px;
 }
 .ai-input-group .generate-ai-text-btn {
-    margin-bottom: 0; /* No margin if it's the last element in this group */
+    margin-bottom: 0;
     font-size: 0.9em;
     padding: var(--button-padding-y) var(--button-padding-x);
 }
 
-/* Label for the final AI output textarea */
 .final-output-label {
     display: block;
     margin-top: 15px;
@@ -245,17 +283,16 @@ textarea#previousExamples.pt-input {
     font-size: 0.9em !important;
     color: var(--primary-brand-color) !important;
 }
-.final-text-output { /* The textarea for AI generated text */
+.final-text-output {
     background-color: color-mix(in srgb, var(--accent-color-light) 10%, var(--surface-main));
     border: 1px solid var(--accent-color-light);
     min-height: 100px;
 }
 
-/* Make.com Data Output Styling */
 #makeComDataOutputSection {
     margin-top: 30px;
 }
-#makeComDataOutput.report-output-area { /* Ensure it inherits any .report-output-area styles if needed */
+#makeComDataOutput.report-output-area {
     background-color: var(--neutral-extralight);
     border: 1px solid var(--border-color);
     padding: 15px 20px;
@@ -290,4 +327,11 @@ select.pt-input {
     background-position: right 12px center;
     background-size: .65em auto;
     padding-right: 30px;
+}
+/* Add :required to force placeholder styling initially */
+select.pt-input:required:invalid {
+  color: var(--text-color-muted, #7A7F89);
+}
+select.pt-input option {
+  color: var(--text-color); /* Ensure options are normally colored */
 }
