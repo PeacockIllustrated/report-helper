@@ -1,0 +1,196 @@
+/* --- Theme: Luxe Minimalist --- */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600&family=Raleway:wght@300;400;500&display=swap');
+
+.theme-luxe-minimalist {
+  /* Core Palette - Cool Grays with a "Gold" accent */
+  --primary-brand-color: #2C303A;  /* Deep Charcoal */
+  --primary-brand-dark: #1E2127;
+  --primary-brand-light: #4A4F59;
+  --accent-color-main: #B08D57;    /* Muted Gold/Bronze */
+  --accent-color-dark: #8C6F45;
+  --accent-color-light: #C8A779;
+
+  --neutral-dark: var(--primary-brand-color);
+  --neutral-medium: #7A7F89; /* Cool Medium Gray */
+  --neutral-light: #D1D3D6;  /* Cool Light Gray */
+  --neutral-extralight: #F4F5F6; /* Very Light Cool Gray */
+  --background-main: #FFFFFF;
+  --surface-main: #FFFFFF;
+
+  --text-on-primary-brand: #F4F5F6; /* Light text on dark charcoal */
+  --text-on-accent: #FFFFFF; /* White text on gold */
+
+  /* Base Variable Overrides */
+  --primary-color: var(--primary-brand-color);
+  --primary-color-dark: var(--primary-brand-dark);
+  --primary-color-light: var(--primary-brand-light);
+  --text-color-on-primary: var(--text-on-primary-brand);
+
+  --secondary-color: var(--neutral-medium); /* A subtle secondary button */
+  --secondary-color-dark: var(--neutral-dark);
+  --secondary-color-light: var(--neutral-light);
+  --text-color-on-secondary: var(--neutral-extralight);
+
+  --accent-color: var(--accent-color-main);
+  --accent-color-dark: var(--accent-color-dark);
+  --accent-color-light: var(--accent-color-light);
+  --text-color-on-accent: var(--text-on-accent);
+
+  --background-color: var(--background-main);
+  --surface-color: var(--surface-main);
+  --surface-color-alt: var(--neutral-extralight);
+
+  --text-color: var(--primary-brand-color); /* Dark text on white bg */
+  --text-color-muted: var(--neutral-medium);
+  --text-color-on-surface: var(--primary-brand-color);
+  --heading-color: var(--primary-brand-color);
+  --heading-color-on-surface: var(--primary-brand-color);
+  --link-color: var(--accent-color-main);
+  --link-color-hover: var(--accent-color-dark);
+
+  --border-color: var(--neutral-light);
+  --border-color-light: var(--neutral-extralight);
+  --border-radius-sm: 2px;  /* Minimal rounding, almost sharp */
+  --border-radius-md: 3px;
+  --border-radius-lg: 4px;
+  --border-radius-pill: 15px; /* Subtly rounded pill */
+  --border-width: 1px;
+  --border-width-bold: 1px; /* Keep borders thin */
+
+  /* Typography - Thin and elegant */
+  --font-family-primary: 'Raleway', var(--font-family-sans);
+  --font-family-headings: 'Montserrat', var(--font-family-sans);
+  --button-font-weight: 500; /* Montserrat Medium */
+
+  /* Shadows - Extremely subtle or none */
+  --shadow-color: rgba(44, 48, 58, 0.05); /* Very faint */
+  --shadow-sm: 0 1px 3px var(--shadow-color);
+  --shadow-md: 0 2px 6px var(--shadow-color);
+  /* Consider removing most shadows for true minimalism if desired */
+
+  /* Alert Colors - Monochromatic with accent for severity */
+  --success-color: var(--accent-color-main); --text-alert: var(--primary-brand-color);
+  --warning-color: #A0A0A0; /* A medium gray */
+  --error-color:   #731D1D; /* A deep, desaturated red */
+  --info-color:    var(--neutral-medium);
+
+  --success-color-light: color-mix(in srgb, var(--success-color) 10%, var(--surface-main));
+  --warning-color-light: color-mix(in srgb, var(--warning-color) 10%, var(--surface-main));
+  --error-color-light:   color-mix(in srgb, var(--error-color) 10%, var(--surface-main));
+  --info-color-light:    color-mix(in srgb, var(--info-color) 10%, var(--surface-main));
+
+  --text-color-on-success: var(--text-on-accent); /* If gold bg, use white text */
+  --text-color-on-warning: var(--text-alert);
+  --text-color-on-error:   #FFFFFF; /* White text on deep red */
+  --text-color-on-info:    var(--text-alert);
+}
+
+.theme-luxe-minimalist .pt-card {
+  border: var(--border-width) solid var(--border-color-light);
+  box-shadow: var(--shadow-sm); /* Very subtle shadow */
+}
+
+.theme-luxe-minimalist .pt-card-title,
+.theme-luxe-minimalist .pt-client-list-item__name {
+    font-weight: 300; /* Montserrat Light for headings */
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--primary-brand-color);
+}
+
+.theme-luxe-minimalist .pt-button {
+    font-family: 'Montserrat', var(--font-family-sans);
+    font-weight: 400; /* Montserrat Regular */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-width: var(--border-width-bold);
+    padding: var(--button-padding-y) calc(var(--button-padding-x) * 1.2);
+}
+
+.theme-luxe-minimalist .pt-button--primary {
+    background-color: var(--primary-brand-color);
+    border-color: var(--primary-brand-color);
+    color: var(--text-on-primary-brand);
+}
+.theme-luxe-minimalist .pt-button--primary:hover {
+    background-color: var(--primary-brand-dark);
+    border-color: var(--primary-brand-dark);
+}
+
+.theme-luxe-minimalist .pt-button--secondary {
+    background-color: transparent;
+    color: var(--primary-brand-color);
+    border-color: var(--primary-brand-color);
+}
+.theme-luxe-minimalist .pt-button--secondary:hover {
+    background-color: var(--primary-brand-color);
+    color: var(--text-on-primary-brand);
+}
+
+.theme-luxe-minimalist .pt-button--accent {
+    background-color: var(--accent-color-main);
+    border-color: var(--accent-color-main);
+    color: var(--text-on-accent);
+}
+.theme-luxe-minimalist .pt-button--accent:hover {
+    background-color: var(--accent-color-dark);
+    border-color: var(--accent-color-dark);
+}
+
+
+.theme-luxe-minimalist .pt-input {
+    background-color: var(--surface-main);
+    border: var(--border-width) solid var(--border-color);
+    color: var(--text-color);
+    font-weight: 300; /* Raleway Light for input text */
+}
+.theme-luxe-minimalist .pt-input:focus {
+    border-color: var(--accent-color-main); /* Gold focus border */
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-color-main) 20%, transparent);
+}
+.theme-luxe-minimalist .pt-input-group label {
+    color: var(--neutral-medium);
+    font-weight: 400; /* Montserrat Regular */
+    text-transform: uppercase;
+    font-size: 0.75em;
+    letter-spacing: 0.5px;
+}
+
+.theme-luxe-minimalist .pt-alert {
+    border-left-width: 2px; /* Thin accent line */
+    box-shadow: none;
+    padding: var(--spacing-md);
+}
+.theme-luxe-minimalist .pt-alert strong {
+    font-family: 'Montserrat', var(--font-family-sans);
+    font-weight: 500;
+}
+.theme-luxe-minimalist .pt-alert--success { background-color: var(--success-color-light); color: var(--primary-brand-color); border-left-color: var(--success-color); }
+.theme-luxe-minimalist .pt-alert--warning { background-color: var(--warning-color-light); color: var(--text-color-on-warning); border-left-color: var(--warning-color); }
+.theme-luxe-minimalist .pt-alert--error   { background-color: var(--error-color-light); color: var(--error-color); border-left-color: var(--error-color); } /* Text from var(--error-color) not --text-color-on-error to ensure it matches the border */
+.theme-luxe-minimalist .pt-alert--info    { background-color: var(--info-color-light); color: var(--text-color-on-info); border-left-color: var(--info-color); }
+
+
+.theme-luxe-minimalist .pt-sidebar {
+    background-color: var(--neutral-extralight); /* Light gray sidebar */
+    border-right-color: var(--border-color);
+}
+.theme-luxe-minimalist .pt-sidebar__logo {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200; /* Montserrat Thin */
+    font-size: 1.8em;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--primary-brand-color);
+}
+.theme-luxe-minimalist .pt-sidebar__nav-link {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+}
+.theme-luxe-minimalist .pt-sidebar__nav-link.is-active {
+    background-color: var(--accent-color-main);
+    color: var(--text-on-accent);
+}
+.theme-luxe-minimalist .pt-sidebar__nav-link.is-active .pt-sidebar__nav-icon {
+    color: var(--text-on-accent);
+}
