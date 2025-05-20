@@ -1,42 +1,41 @@
-/* style.css - Custom styles to complement theme-luxe-minimalist.css */
+/* style.css - Custom styles */
 
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
 body {
-    font-family: var(--font-family-primary, 'Raleway', sans-serif); /* Fallback font */
+    font-family: var(--font-family-primary, 'Raleway', sans-serif);
     color: var(--text-color, #2C303A);
     background-color: var(--background-color, #FFFFFF);
     margin: 0;
-    padding: 20px 10px; /* Add some padding for smaller screens */
+    padding: 20px 10px;
     line-height: 1.6;
 }
 
 .container {
-    max-width: 800px;
+    max-width: 900px; /* Wider for report preview */
     margin: 0 auto;
     padding: 20px;
-    /* background-color: var(--surface-main); // Theme should handle this */
 }
 
 header {
     text-align: center;
-    margin-bottom: 40px; /* Increased margin */
+    margin-bottom: 40px;
     padding-bottom: 25px;
     border-bottom: 1px solid var(--border-color-light, #F4F5F6);
 }
 
-.app-title.pt-sidebar__logo { /* Using pt-sidebar__logo for its thin, uppercase style */
-    font-size: 2.0em; /* Slightly smaller for app context */
+.app-title.pt-sidebar__logo {
+    font-size: 2.0em;
     margin-bottom: 8px;
     color: var(--primary-brand-color, #2C303A);
 }
 
 header p.text-color-muted {
-    font-size: 1em; /* Slightly larger for better readability */
+    font-size: 1em;
     font-family: var(--font-family-primary, 'Raleway', sans-serif);
-    font-weight: 300; /* Raleway Light */
+    font-weight: 300;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
@@ -47,49 +46,57 @@ section {
 }
 
 .pt-card {
-  padding: 25px 30px; /* Slightly more padding */
+  padding: 25px 30px;
   margin-bottom: 30px;
-  background-color: var(--surface-main, #FFFFFF); /* Ensure it's white if theme doesn't force it */
-  border: var(--border-width, 1px) solid var(--border-color-light, #F4F5F6); /* Explicitly define for consistency */
-  box-shadow: var(--shadow-sm, 0 1px 3px rgba(44, 48, 58, 0.05)); /* Subtle shadow from theme */
-  border-radius: var(--border-radius-lg, 4px); /* Slightly more rounded */
+  background-color: var(--surface-main, #FFFFFF);
+  border: var(--border-width, 1px) solid var(--border-color-light, #F4F5F6);
+  box-shadow: var(--shadow-sm, 0 1px 3px rgba(44, 48, 58, 0.05));
+  border-radius: var(--border-radius-lg, 4px);
 }
 
 .pt-card-title {
   margin-top: 0;
   margin-bottom: 25px;
-  font-size: 1.2em; /* Adjusted size */
-  font-weight: 400; /* Montserrat Regular, slightly bolder than theme's 300 for section titles */
-  letter-spacing: 1px; /* Reduced letter spacing slightly */
+  font-size: 1.2em;
+  font-weight: 400;
+  letter-spacing: 1px;
 }
 
 .pt-input-group {
-    margin-bottom: 25px;
+    margin-bottom: 20px; /* Slightly reduced */
 }
 
 .pt-input-group label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 8px; /* Slightly reduced */
     font-family: var(--font-family-headings, 'Montserrat', sans-serif);
-    font-weight: 500; /* Montserrat Medium from theme button weight */
-    text-transform: none; /* Overriding theme's uppercase for labels for a softer feel */
-    font-size: 0.9em; /* Slightly larger */
-    letter-spacing: 0.2px; /* Reduced */
+    font-weight: 500;
+    text-transform: none;
+    font-size: 0.9em;
+    letter-spacing: 0.2px;
     color: var(--neutral-dark, #2C303A);
 }
 
 .pt-input,
-textarea.pt-input {
+textarea.pt-input,
+select.pt-input {
     width: 100%;
-    padding: 12px 15px; /* More padding */
+    padding: 10px 12px; /* Slightly reduced */
     font-family: var(--font-family-primary, 'Raleway', sans-serif);
-    font-weight: 300; /* Raleway Light as per theme .pt-input */
+    font-weight: 300;
     font-size: 0.95em;
     border-radius: var(--border-radius-md, 3px);
     line-height: 1.5;
+    border: 1px solid var(--border-color, #D1D3D6); /* Ensure border is visible */
 }
 textarea.pt-input {
-    min-height: 120px;
+    min-height: 100px;
+}
+
+.grid-2-col {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
 }
 
 .help-text {
@@ -108,7 +115,7 @@ textarea.pt-input {
     margin-bottom: 30px;
 }
 
-.pt-button--lg { /* Custom larger button style */
+.pt-button--lg {
     padding: calc(var(--button-padding-y) * 1.5) calc(var(--button-padding-x) * 1.8);
     font-size: 1.05em;
 }
@@ -117,7 +124,7 @@ textarea.pt-input {
     margin-top: 20px;
     color: var(--accent-color-main, #B08D57);
     font-family: var(--font-family-headings, 'Montserrat', sans-serif);
-    font-weight: 400; /* Montserrat Regular */
+    font-weight: 400;
     font-size: 0.95em;
     display: flex;
     align-items: center;
@@ -139,22 +146,153 @@ textarea.pt-input {
     100% { transform: rotate(360deg); }
 }
 
-.report-output-area {
-    background-color: var(--neutral-extralight, #F4F5F6);
-    border: 1px solid var(--border-color-light, #F4F5F6);
-    border-radius: var(--border-radius-md, 3px);
-    padding: 20px 25px;
-    min-height: 200px;
-    white-space: pre-wrap; /* Preserves formatting from AI */
-    font-family: var(--font-family-primary, 'Raleway', sans-serif);
-    font-size: 0.95em;
-    line-height: 1.7;
-    color: var(--text-color-on-surface, #2C303A);
+/* Report Output Styling - Aiming for Miss Schofield document look */
+.report-output-wrapper {
+    padding: 20px; /* Inner padding for the card effect */
+    border: 1px solid #ccc; /* Outer border for the "card" */
+    background-color: #fff;
 }
 
+.report-page-view {
+    /* Simulates an A4 page aspect ratio and feel within the wrapper */
+    max-width: 794px; /* Approx A4 width at 96dpi */
+    margin: 0 auto;
+    padding: 30px 40px; /* Margins like a document */
+    border: 1px solid #ddd; /* Inner border for the "page" */
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    font-family: 'Arial', sans-serif; /* Common document font, or use a specific one from template */
+    color: #000;
+}
+
+.report-section {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    /* border-bottom: 1px dashed #eee; */ /* Optional separator */
+}
+.report-section:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.school-logo-placeholder {
+    font-family: 'Times New Roman', serif; /* Or a similar font if you have the logo font */
+    font-size: 0.9em;
+    color: #555;
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: inline-block;
+    margin-bottom: 15px;
+    border-radius: 50%; /* If logo is circular */
+    width: 100px; /* Adjust as needed */
+    height: 100px; /* Adjust as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#outputCoverInfo p {
+    font-family: 'Arial', sans-serif; /* Font from template */
+    font-size: 1.1em; /* Font from template */
+    margin-bottom: 5px;
+}
+.report-year {
+    font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif; /* Font from template */
+    font-size: 2.5em; /* Font from template */
+    font-weight: bold;
+    margin: 5px 0;
+    color: #000;
+}
+.report-teacher {
+    font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif; /* Font from template */
+    font-size: 2em; /* Font from template */
+    font-weight: bold;
+    margin-top: 0;
+    color: #000;
+}
+
+.section-title-box {
+    font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif; /* Font from template */
+    font-size: 1.8em; /* Font from template */
+    font-weight: bold;
+    border: 2px solid #000;
+    padding: 10px 15px;
+    text-align: center;
+    margin: 20px auto;
+    display: inline-block; /* To make it not full width */
+    min-width: 300px;
+}
+#outputChildNameSection .section-title-box {
+    display: block; /* Make it full width for this specific title */
+}
+
+
+.section-title-underline {
+    font-family: 'Arial', sans-serif; /* Font from template */
+    font-weight: bold;
+    font-size: 1.1em; /* Font from template */
+    border-bottom: 1px solid #000;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    color: #000;
+}
+
+.date-note {
+    font-size: 0.8em;
+    font-weight: normal;
+    color: #333;
+    float: right;
+}
+
+.narrative-text {
+    font-family: 'Arial', sans-serif; /* Font from template general text */
+    font-size: 1em; /* Font from template */
+    line-height: 1.6;
+    white-space: pre-wrap; /* Preserve line breaks from AI */
+}
+.target-list {
+    list-style-type: disc; /* Or '• ' if using pre-wrap on text */
+    padding-left: 20px;
+}
+.target-list li {
+    margin-bottom: 5px;
+}
+
+.small-text {
+    font-size: 0.85em;
+    color: #444;
+}
+
+.modern-table-look {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    border-radius: var(--border-radius-sm);
+}
+.modern-table-look div {
+    padding: 5px 0;
+}
+
+
+.signature-section {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+.signature-line {
+    font-family: 'Arial', sans-serif;
+    font-size: 1em;
+    margin-bottom: 25px;
+}
+
+
 .copy-button {
-    margin-top: 20px !important; /* Ensure spacing */
-    display: inline-flex; /* Align icon and text */
+    margin-top: 20px !important;
+    display: inline-flex;
     align-items: center;
 }
 .copy-feedback {
@@ -173,4 +311,21 @@ footer {
     font-size: 0.8em;
     font-family: var(--font-family-primary, 'Raleway', sans-serif);
     font-weight: 300;
+}
+
+/* Ensure select dropdowns pick up theme font if possible */
+select.pt-input {
+    -webkit-appearance: none; /* For Chrome/Safari */
+    -moz-appearance: none; /* For Firefox */
+    appearance: none; /* Standard */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: .65em auto;
+    padding-right: 30px; /* Make space for arrow */
+    color: var(--text-color); /* Ensure text color from theme */
+}
+/* For dark themes, the arrow might need to be a different color or SVG */
+.theme-luxe-minimalist select.pt-input {
+     background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%232C303A%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
 }
