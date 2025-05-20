@@ -16,7 +16,7 @@
 
         <!-- API Key Section (Still needed for in-app AI) -->
         <section class="pt-card">
-            <h2 class="pt-card-title">A. OpenAI API Key</h2>
+            <h2 class="pt-card-title">A. Setup & AI Style Reference</h2>
             <div class="pt-input-group">
                 <label for="apiKey">OpenAI API Key:</label>
                 <input type="password" id="apiKey" class="pt-input" placeholder="Enter your OpenAI API Key (sk-...)">
@@ -142,46 +142,49 @@
             </div>
         </section>
 
-        <!-- Narrative Sections with AI Assist -->
+        <!-- Narrative Sections -->
         <section class="pt-card">
-            <h2 class="pt-card-title">F. Narrative Sections (AI Assisted)</h2>
+            <h2 class="pt-card-title">F. Report Narrative Sections</h2>
             
-            <!-- Teacher's General Comments -->
-            <div class="ai-section">
-                <label for="teacherGeneralCommentsNotes">Teacher's General Comments (Shorthand/Notes):</label>
-                <textarea id="teacherGeneralCommentsNotes" class="pt-input notes-input" rows="5" placeholder="Enter notes on overall progress, personality, social skills, academic summary..."></textarea>
-                <button class="pt-button pt-button--secondary generate-ai-text-btn" data-target-id="var_teacherGeneralComments" data-source-id="teacherGeneralCommentsNotes" data-section-name="Teacher's General Comments">Generate Comment</button>
+            <!-- Teacher's General Comments (AI Assisted) -->
+            <div class="report-sub-section">
+                <h3 class="sub-section-title">Teacher's General Comments</h3>
+                <div class="ai-input-group">
+                    <label for="teacherGeneralCommentsNotes">Shorthand/Notes for AI Generation:</label>
+                    <textarea id="teacherGeneralCommentsNotes" class="pt-input notes-input" rows="5" placeholder="Enter notes on overall progress, personality, social skills, academic summary..."></textarea>
+                    <button class="pt-button pt-button--secondary generate-ai-text-btn" data-target-id="var_teacherGeneralComments" data-source-id="teacherGeneralCommentsNotes" data-section-name="Teacher's General Comments">Generate Comment</button>
+                </div>
                 <label for="var_teacherGeneralComments" class="final-output-label">Generated Teacher's General Comments (Review & Edit):</label>
                 <textarea id="var_teacherGeneralComments" name="var_teacherGeneralComments" class="pt-input final-text-output" rows="8" placeholder="AI-generated text will appear here..."></textarea>
             </div>
 
-            <!-- Targets for the year ahead -->
-            <div class="ai-section">
-                <label for="targetsYearAheadNotes">Targets for the Year Ahead (Shorthand/Notes - one per line):</label>
-                <textarea id="targetsYearAheadNotes" class="pt-input notes-input" rows="4" placeholder="e.g., Improve handwriting
-Read more fluently
-Build confidence in maths"></textarea>
-                <button class="pt-button pt-button--secondary generate-ai-text-btn" data-target-id="var_targetsYearAhead" data-source-id="targetsYearAheadNotes" data-section-name="Targets for the Year Ahead">Generate Targets</button>
-                <label for="var_targetsYearAhead" class="final-output-label">Generated Targets (Review & Edit - ensure one target per line):</label>
-                <textarea id="var_targetsYearAhead" name="var_targetsYearAhead" class="pt-input final-text-output" rows="5" placeholder="AI-generated targets will appear here, one per line..."></textarea>
+            <!-- Targets for the year ahead (Direct Input) -->
+            <div class="report-sub-section">
+                <h3 class="sub-section-title">Targets for the Year Ahead</h3>
+                <div class="pt-input-group">
+                    <label for="var_target1">Target 1:</label>
+                    <input type="text" id="var_target1" name="var_target1" class="pt-input" placeholder="Enter first target">
+                </div>
+                <div class="pt-input-group">
+                    <label for="var_target2">Target 2 (Optional):</label>
+                    <input type="text" id="var_target2" name="var_target2" class="pt-input" placeholder="Enter second target">
+                </div>
+                <div class="pt-input-group">
+                    <label for="var_target3">Target 3 (Optional):</label>
+                    <input type="text" id="var_target3" name="var_target3" class="pt-input" placeholder="Enter third target">
+                </div>
             </div>
 
-            <!-- Pupil's Comments -->
-            <div class="ai-section">
-                <label for="pupilCommentsNotes">Pupil's Comments (Shorthand/Notes - Optional):</label>
-                <textarea id="pupilCommentsNotes" class="pt-input notes-input" rows="3" placeholder="e.g., Loved science. Enjoyed making models. Want to be astronaut."></textarea>
-                <button class="pt-button pt-button--secondary generate-ai-text-btn" data-target-id="var_pupilComments" data-source-id="pupilCommentsNotes" data-section-name="Pupil's Comments">Generate Pupil Comment</button>
+            <!-- Pupil's Comments (AI Assisted) -->
+            <div class="report-sub-section">
+                <h3 class="sub-section-title">Pupil's Comments (Optional)</h3>
+                 <div class="ai-input-group">
+                    <label for="pupilCommentsNotes">Shorthand/Notes for AI Generation (Optional):</label>
+                    <textarea id="pupilCommentsNotes" class="pt-input notes-input" rows="3" placeholder="e.g., Loved science. Enjoyed making models. Want to be astronaut."></textarea>
+                    <button class="pt-button pt-button--secondary generate-ai-text-btn" data-target-id="var_pupilComments" data-source-id="pupilCommentsNotes" data-section-name="Pupil's Comments">Generate Pupil Comment</button>
+                </div>
                 <label for="var_pupilComments" class="final-output-label">Generated Pupil's Comments (Review & Edit - Optional):</label>
                 <textarea id="var_pupilComments" name="var_pupilComments" class="pt-input final-text-output" rows="4" placeholder="AI-generated text will appear here..."></textarea>
-            </div>
-            
-            <!-- Head Teacher's Comments -->
-            <div class="ai-section">
-                <label for="headteacherCommentsNotes">Head Teacher's Comments (Shorthand/Notes - Optional):</label>
-                <textarea id="headteacherCommentsNotes" class="pt-input notes-input" rows="3" placeholder="Enter Head Teacher's notes if applicable..."></textarea>
-                <button class="pt-button pt-button--secondary generate-ai-text-btn" data-target-id="var_headteacherComments" data-source-id="headteacherCommentsNotes" data-section-name="Head Teacher's Comments">Generate HT Comment</button>
-                <label for="var_headteacherComments" class="final-output-label">Generated Head Teacher's Comments (Review & Edit - Optional):</label>
-                <textarea id="var_headteacherComments" name="var_headteacherComments" class="pt-input final-text-output" rows="4" placeholder="AI-generated text will appear here..."></textarea>
             </div>
         </section>
 
@@ -200,7 +203,7 @@ Build confidence in maths"></textarea>
         <section class="pt-card" id="makeComDataOutputSection" style="display:none;">
             <h2 class="pt-card-title">G. Data for Make.com</h2>
             <p>Copy the JSON data below and use it in your Make.com scenario (e.g., in a JSON Parse module after the Webhook).</p>
-            <pre id="makeComDataOutput" class="report-output-area" style="max-height: 400px; overflow-y: auto;"></pre>
+            <pre id="makeComDataOutput" class="report-output-area"></pre>
         </section>
 
         <footer>
