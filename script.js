@@ -4,15 +4,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const previousExamplesInput = document.getElementById('previousExamples');
     const saveExamplesBtn = document.getElementById('saveExamplesBtn');
     
+    const childFullNameInput = document.getElementById('var_childFullName'); // Get child's full name input
+
     const loadingIndicator = document.getElementById('loadingIndicator');
     const saveFeedback = document.getElementById('saveFeedback');
     const prepareDataBtn = document.getElementById('prepareDataBtn');
     const makeComDataOutputSection = document.getElementById('makeComDataOutputSection');
     const makeComDataOutput = document.getElementById('makeComDataOutput');
 
-    const MAKE_WEBHOOK_URL = 'https://hook.eu2.make.com/m6a9dcv6jvdpwsp9ca6nsxfvvryhetk5'; // Your Webhook URL
+    const MAKE_WEBHOOK_URL = 'https://hook.eu2.make.com/m6a9dcv6jvdpwsp9ca6nsxfvvryhetk5';
 
-    // --- Local Storage Functions ---
     function loadSavedData() {
         const savedApiKey = localStorage.getItem('reportGeneratorApiKey');
         if (savedApiKey) {
@@ -26,11 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showUserFeedback(element, message, isSuccess) {
         element.textContent = message;
-        element.className = 'save-feedback ' + (isSuccess ? 'success' : 'error'); // Re-use save-feedback class for styling
+        element.className = 'save-feedback ' + (isSuccess ? 'success' : 'error');
         element.style.display = 'flex';
         setTimeout(() => {
             element.style.display = 'none';
-        }, 4000); // Display feedback for 4 seconds
+        }, 4000);
     }
 
     if (saveApiKeyBtn) {
@@ -59,7 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadSavedData();
 
-    // --- AI Generation for applicable sections ---
     document.querySelectorAll('.generate-ai-text-btn').forEach(button => {
         const sectionName = button.dataset.sectionName;
         if (!document.getElementById(button.dataset.sourceId) || !document.getElementById(button.dataset.targetId)) {
@@ -70,6 +70,9 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', async () => {
             const apiKey = apiKeyInput.value.trim();
             const previousExamples = previousExamplesInput.value.trim();
+            const childFullName = childFullNameInput.value.trim(); // Get child's full name
+            const childFirstName = childFullName ? childFullName.split(' ')[0] : "the student"; // Extract first name, or use "the student" as fallback
+
             const sourceId = button.dataset.sourceId;
             const targetId = button.dataset.targetId;
             const notesInput = document.getElementById(sourceId);
@@ -86,6 +89,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 previousExamplesInput.focus();
                 return;
             }
+             if (!childFullName) { // Also check if child's name is entered for better AI context
+                alert("Please enter the Child's Full Name first.");
+                childFullNameInput.focus();
+                return;
+            }
             if (!notes) {
                 alert(`Please enter some shorthand/notes for "${sectionName}".`);
                 notesInput.focus();
@@ -98,14 +106,16 @@ document.addEventListener('DOMContentLoaded', () => {
             button.textContent = 'Generating...';
             targetTextarea.value = "Generating professional text...";
 
+            // --- MODIFIED PROMPT ---
             const sectionPrompt = `
-You are an AI assistant helping a teacher expand shorthand notes into a professional, well-written section for a UK primary school report.
+You are an AI assistant helping a teacher expand shorthand notes into a professional, well-written section for a UK primary school report for a student named ${childFirstName}.
 The tone MUST be consistent with the "PREVIOUS REPORT EXAMPLES" provided below.
 Use UK English spelling and grammar. Ensure the generated text is an appropriate length for a school report section.
+When referring to the student, use their first name, ${childFirstName}, where appropriate and natural.
 
 The section to expand is: "${sectionName}"
 
-Shorthand Notes provided by the teacher (expand these):
+Shorthand Notes provided by the teacher (expand these, keeping ${childFirstName} in mind):
 --- NOTES START ---
 ${notes}
 --- NOTES END ---
@@ -119,6 +129,8 @@ Please expand the shorthand notes into a full, polished paragraph or set of para
 Do not add extra conversational text before or after the generated content, just provide the expanded text for the section.
 Generated Text:
 `;
+            // --- END OF MODIFIED PROMPT ---
+
             try {
                 const response = await fetch('https://api.openai.com/v1/chat/completions', {
                     method: 'POST',
@@ -154,8 +166,7 @@ Generated Text:
         });
     });
 
-    // --- Prepare and Send data to Make.com ---
-    prepareDataBtn.addEventListener('click', async () => { // Made async for fetch
+    prepareDataBtn.addEventListener('click', async () => {
         const reportData = {};
         const allInputs = document.querySelectorAll('input[name^="var_"], select[name^="var_"], textarea[name^="var_"]');
 
@@ -213,15 +224,13 @@ Generated Text:
             return;
         }
 
-        // Display JSON locally (optional, can be removed if not needed after webhook)
         makeComDataOutput.textContent = JSON.stringify(reportData, null, 2);
-        makeComDataOutputSection.style.display = 'block'; // Keep this to show JSON if webhook fails
+        makeComDataOutputSection.style.display = 'block';
 
-        // Send data to Make.com webhook
         const originalButtonText = prepareDataBtn.textContent;
         prepareDataBtn.disabled = true;
         prepareDataBtn.textContent = 'Sending to Make.com...';
-        loadingIndicator.style.display = 'flex'; // Show general loading indicator
+        loadingIndicator.style.display = 'flex';
 
         try {
             const response = await fetch(MAKE_WEBHOOK_URL, {
@@ -232,23 +241,21 @@ Generated Text:
                 body: JSON.stringify(reportData),
             });
 
-            if (response.ok) { // Make.com webhooks usually return 200 OK with "Accepted"
-                const responseText = await response.text(); // Get text response from Make.com
+            if (response.ok) {
+                const responseText = await response.text();
                 if (responseText.toLowerCase() === "accepted") {
                     showUserFeedback(saveFeedback, 'Data sent to Make.com successfully!', true);
-                    makeComDataOutputSection.style.display = 'none'; // Optionally hide local JSON on success
+                    makeComDataOutputSection.style.display = 'none';
                 } else {
                      showUserFeedback(saveFeedback, `Make.com responded: ${responseText}. Data might not be fully processed. Check Make.com scenario.`, false);
                 }
             } else {
-                // Handle HTTP errors from Make.com
                 const errorText = await response.text();
                 throw new Error(`Make.com webhook error: ${response.status} ${response.statusText}. Response: ${errorText}`);
             }
         } catch (error) {
             console.error('Error sending data to Make.com:', error);
             showUserFeedback(saveFeedback, `Failed to send data to Make.com: ${error.message}. Please copy the JSON below manually.`, false);
-            // Ensure JSON is visible for manual copy
             makeComDataOutputSection.style.display = 'block';
             makeComDataOutput.scrollIntoView({ behavior: 'smooth', block: 'start' });
         } finally {
@@ -258,7 +265,6 @@ Generated Text:
         }
     });
 
-    // JS to handle select placeholder class for styling
     document.querySelectorAll('.subject-grid select.pt-input').forEach(select => {
         function updatePlaceholderClass() {
             if (select.value === "") {
