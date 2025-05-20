@@ -1,0 +1,176 @@
+/* style.css - Custom styles to complement theme-luxe-minimalist.css */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family-primary, 'Raleway', sans-serif); /* Fallback font */
+    color: var(--text-color, #2C303A);
+    background-color: var(--background-color, #FFFFFF);
+    margin: 0;
+    padding: 20px 10px; /* Add some padding for smaller screens */
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    /* background-color: var(--surface-main); // Theme should handle this */
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px; /* Increased margin */
+    padding-bottom: 25px;
+    border-bottom: 1px solid var(--border-color-light, #F4F5F6);
+}
+
+.app-title.pt-sidebar__logo { /* Using pt-sidebar__logo for its thin, uppercase style */
+    font-size: 2.0em; /* Slightly smaller for app context */
+    margin-bottom: 8px;
+    color: var(--primary-brand-color, #2C303A);
+}
+
+header p.text-color-muted {
+    font-size: 1em; /* Slightly larger for better readability */
+    font-family: var(--font-family-primary, 'Raleway', sans-serif);
+    font-weight: 300; /* Raleway Light */
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+section {
+    margin-bottom: 30px;
+}
+
+.pt-card {
+  padding: 25px 30px; /* Slightly more padding */
+  margin-bottom: 30px;
+  background-color: var(--surface-main, #FFFFFF); /* Ensure it's white if theme doesn't force it */
+  border: var(--border-width, 1px) solid var(--border-color-light, #F4F5F6); /* Explicitly define for consistency */
+  box-shadow: var(--shadow-sm, 0 1px 3px rgba(44, 48, 58, 0.05)); /* Subtle shadow from theme */
+  border-radius: var(--border-radius-lg, 4px); /* Slightly more rounded */
+}
+
+.pt-card-title {
+  margin-top: 0;
+  margin-bottom: 25px;
+  font-size: 1.2em; /* Adjusted size */
+  font-weight: 400; /* Montserrat Regular, slightly bolder than theme's 300 for section titles */
+  letter-spacing: 1px; /* Reduced letter spacing slightly */
+}
+
+.pt-input-group {
+    margin-bottom: 25px;
+}
+
+.pt-input-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-family: var(--font-family-headings, 'Montserrat', sans-serif);
+    font-weight: 500; /* Montserrat Medium from theme button weight */
+    text-transform: none; /* Overriding theme's uppercase for labels for a softer feel */
+    font-size: 0.9em; /* Slightly larger */
+    letter-spacing: 0.2px; /* Reduced */
+    color: var(--neutral-dark, #2C303A);
+}
+
+.pt-input,
+textarea.pt-input {
+    width: 100%;
+    padding: 12px 15px; /* More padding */
+    font-family: var(--font-family-primary, 'Raleway', sans-serif);
+    font-weight: 300; /* Raleway Light as per theme .pt-input */
+    font-size: 0.95em;
+    border-radius: var(--border-radius-md, 3px);
+    line-height: 1.5;
+}
+textarea.pt-input {
+    min-height: 120px;
+}
+
+.help-text {
+    font-size: 0.8em;
+    display: block;
+    margin-top: 8px;
+    font-family: var(--font-family-primary, 'Raleway', sans-serif);
+    font-weight: 300;
+}
+
+.text-center {
+    text-align: center;
+}
+
+#action-section {
+    margin-bottom: 30px;
+}
+
+.pt-button--lg { /* Custom larger button style */
+    padding: calc(var(--button-padding-y) * 1.5) calc(var(--button-padding-x) * 1.8);
+    font-size: 1.05em;
+}
+
+.loading-text {
+    margin-top: 20px;
+    color: var(--accent-color-main, #B08D57);
+    font-family: var(--font-family-headings, 'Montserrat', sans-serif);
+    font-weight: 400; /* Montserrat Regular */
+    font-size: 0.95em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spinner {
+    border: 3px solid var(--neutral-light, #D1D3D6);
+    border-top: 3px solid var(--accent-color-main, #B08D57);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+    margin-right: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.report-output-area {
+    background-color: var(--neutral-extralight, #F4F5F6);
+    border: 1px solid var(--border-color-light, #F4F5F6);
+    border-radius: var(--border-radius-md, 3px);
+    padding: 20px 25px;
+    min-height: 200px;
+    white-space: pre-wrap; /* Preserves formatting from AI */
+    font-family: var(--font-family-primary, 'Raleway', sans-serif);
+    font-size: 0.95em;
+    line-height: 1.7;
+    color: var(--text-color-on-surface, #2C303A);
+}
+
+.copy-button {
+    margin-top: 20px !important; /* Ensure spacing */
+    display: inline-flex; /* Align icon and text */
+    align-items: center;
+}
+.copy-feedback {
+    font-family: var(--font-family-primary, 'Raleway', sans-serif);
+    color: var(--success-color, #B08D57);
+    font-size: 0.9em;
+    margin-left: 10px;
+}
+
+footer {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color-light, #F4F5F6);
+}
+.footer-text {
+    font-size: 0.8em;
+    font-family: var(--font-family-primary, 'Raleway', sans-serif);
+    font-weight: 300;
+}
