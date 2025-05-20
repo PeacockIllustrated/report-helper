@@ -3,204 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher's Report Generator</title>
+    <title>Teacher's Report Data Entry</title>
     <link rel="stylesheet" href="theme-luxe-minimalist.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="theme-luxe-minimalist">
     <div class="container">
         <header>
-            <h1 class="pt-sidebar__logo app-title">Teacher's Report Generator</h1>
-            <p class="text-color-muted">Easily create professionally structured student reports.</p>
+            <h1 class="pt-sidebar__logo app-title">Report Data Input</h1>
+            <p class="text-color-muted">Enter student information. Use AI to help draft narrative sections.</p>
         </header>
 
-        <section class="pt-card" id="api-key-section">
-            <h2 class="pt-card-title">1. Setup</h2>
+        <!-- API Key Section (Still needed for in-app AI) -->
+        <section class="pt-card">
+            <h2 class="pt-card-title">A. OpenAI API Key</h2>
             <div class="pt-input-group">
                 <label for="apiKey">OpenAI API Key:</label>
                 <input type="password" id="apiKey" class="pt-input" placeholder="Enter your OpenAI API Key (sk-...)">
-                <small class="text-color-muted help-text">Your API key is used directly to communicate with OpenAI.</small>
+                <small class="text-color-muted help-text">Required for AI text generation features.</small>
+            </div>
+            <div class="pt-input-group">
+                <label for="previousExamples">Your Previous Report Examples (for AI tone & style):</label>
+                <textarea id="previousExamples" class="pt-input" rows="5" placeholder="Paste 1-2 examples of your report writing style here. AI uses this for consistent tone."></textarea>
             </div>
         </section>
 
-        <section class="pt-card" id="input-section">
-            <h2 class="pt-card-title">2. Student & Report Details</h2>
-            <div class="grid-2-col">
-                <div class="pt-input-group">
-                    <label for="childName">Child's Full Name:</label>
-                    <input type="text" id="childName" class="pt-input" placeholder="e.g., Alfie Burns">
-                </div>
-                <div class="pt-input-group">
-                    <label for="academicYear">Academic Year:</label>
-                    <input type="text" id="academicYear" class="pt-input" placeholder="e.g., 2024/25" value="2024/25">
-                </div>
+        <!-- Report Cover Information -->
+        <section class="pt-card">
+            <h2 class="pt-card-title">B. Report Cover Details</h2>
+            <div class="pt-input-group">
+                <label for="var_academicYear">Academic Year:</label>
+                <input type="text" id="var_academicYear" name="var_academicYear" class="pt-input" placeholder="e.g., 2024/25" value="2024/25">
             </div>
             <div class="pt-input-group">
-                <label for="teacherName">Teacher's Name (with title):</label>
-                <input type="text" id="teacherName" class="pt-input" placeholder="e.g., Miss Schofield, Mrs Peacock">
+                <label for="var_teacherName">Teacher's Name (e.g., Miss Schofield):</label>
+                <input type="text" id="var_teacherName" name="var_teacherName" class="pt-input" placeholder="Miss Schofield">
             </div>
+        </section>
 
+        <!-- Child's Name -->
+        <section class="pt-card">
+            <h2 class="pt-card-title">C. Child's Information</h2>
             <div class="pt-input-group">
-                <label for="academicPerformanceNotes">Academic Performance Notes (Key achievements, progress, areas for development across subjects):</label>
-                <textarea id="academicPerformanceNotes" class="pt-input" rows="8" placeholder="e.g., Alfie has shown excellent progress in reading, confidently tackling new texts. He applies phonic knowledge well. In Maths, he enjoys problem-solving... Needs to focus on handwriting neatness. Participates well in Science discussions..."></textarea>
+                <label for="var_childFullName">Child's Full Name:</label>
+                <input type="text" id="var_childFullName" name="var_childFullName" class="pt-input" placeholder="e.g., Alfie Burns">
             </div>
+        </section>
 
+        <!-- Subject Attainment and Effort -->
+        <section class="pt-card">
+            <h2 class="pt-card-title">D. Subject Attainment and Effort</h2>
+            <p class="text-color-muted" style="margin-bottom: 15px;">Select attainment and effort for each subject.</p>
+            <div class="subject-grid">
+                <!-- Core Subjects -->
+                <strong class="grid-header">Core Subjects</strong><div></div><div></div>
+                <label for="var_readingAttainment">Reading:</label>
+                <select id="var_readingAttainment" name="var_readingAttainment" class="pt-input subject-grade"><option value="">Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
+                <select id="var_readingEffort" name="var_readingEffort" class="pt-input subject-grade"><option value="">Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+
+                <label for="var_writingAttainment">Writing:</label>
+                <select id="var_writingAttainment" name="var_writingAttainment" class="pt-input subject-grade"><option value="">Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
+                <select id="var_writingEffort" name="var_writingEffort" class="pt-input subject-grade"><option value="">Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+
+                <label for="var_mathematicsAttainment">Mathematics:</label>
+                <select id="var_mathematicsAttainment" name="var_mathematicsAttainment" class="pt-input subject-grade"><option value="">Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
+                <select id="var_mathematicsEffort" name="var_mathematicsEffort" class="pt-input subject-grade"><option value="">Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+
+                <label for="var_scienceAttainment">Science:</label>
+                <select id="var_scienceAttainment" name="var_scienceAttainment" class="pt-input subject-grade"><option value="">Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
+                <select id="var_scienceEffort" name="var_scienceEffort" class="pt-input subject-grade"><option value="">Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+                
+                <!-- Foundation Subjects -->
+                <strong class="grid-header">Foundation Subjects</strong><div></div><div></div>
+                <label for="var_artAttainment">Art:</label>
+                <select id="var_artAttainment" name="var_artAttainment" class="pt-input subject-grade"><option value="">Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
+                <select id="var_artEffort" name="var_artEffort" class="pt-input subject-grade"><option value="">Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+
+                <label for="var_computingAttainment">Computing:</label>
+                <select id="var_computingAttainment" name="var_computingAttainment" class="pt-input subject-grade"><option value="">Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
+                <select id="var_computingEffort" name="var_computingEffort" class="pt-input subject-grade"><option value="">Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+
+                <label for="var_designTechnologyAttainment">Design & Technology:</label>
+                <select id="var_designTechnologyAttainment" name="var_designTechnologyAttainment" class="pt-input subject-grade"><option value="">Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
+                <select id="var_designTechnologyEffort" name="var_designTechnologyEffort" class="pt-input subject-grade"><option value="">Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+
+                <label for="var_frenchAttainment">French (Y3-6 only):</label>
+                <select id="var_frenchAttainment" name="var_frenchAttainment" class="pt-input subject-grade"><option value="">Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option><option value="N/A">N/A</option></select>
+                <select id="var_frenchEffort" name="var_frenchEffort" class="pt-input subject-grade"><option value="">Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="N/A">N/A</option></select>
+
+                <label for="var_geographyAttainment">Geography:</label>
+                <select id="var_geographyAttainment" name="var_geographyAttainment" class="pt-input subject-grade"><option value="">Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
+                <select id="var_geographyEffort" name="var_geographyEffort" class="pt-input subject-grade"><option value="">Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+
+                <label for="var_historyAttainment">History:</label>
+                <select id="var_historyAttainment" name="var_historyAttainment" class="pt-input subject-grade"><option value="">Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
+                <select id="var_historyEffort" name="var_historyEffort" class="pt-input subject-grade"><option value="">Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+
+                <label for="var_musicAttainment">Music:</label>
+                <select id="var_musicAttainment" name="var_musicAttainment" class="pt-input subject-grade"><option value="">Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
+                <select id="var_musicEffort" name="var_musicEffort" class="pt-input subject-grade"><option value="">Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+
+                <label for="var_physicalEducationAttainment">Physical Education:</label>
+                <select id="var_physicalEducationAttainment" name="var_physicalEducationAttainment" class="pt-input subject-grade"><option value="">Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
+                <select id="var_physicalEducationEffort" name="var_physicalEducationEffort" class="pt-input subject-grade"><option value="">Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+
+                <label for="var_religiousEducationAttainment">Religious Education:</label>
+                <select id="var_religiousEducationAttainment" name="var_religiousEducationAttainment" class="pt-input subject-grade"><option value="">Attainment</option><option value="GDS">GDS</option><option value="EXS">EXS</option><option value="WTS">WTS</option><option value="BLW">BLW</option></select>
+                <select id="var_religiousEducationEffort" name="var_religiousEducationEffort" class="pt-input subject-grade"><option value="">Effort</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+            </div>
+        </section>
+
+        <!-- Attendance and Punctuality -->
+        <section class="pt-card">
+            <h2 class="pt-card-title">E. Attendance and Punctuality</h2>
             <div class="grid-2-col">
                 <div class="pt-input-group">
-                    <label for="attendanceRating">Attendance Rating:</label>
-                    <select id="attendanceRating" class="pt-input">
-                        <option value="Excellent (99% or 100%)">Excellent (99% or 100%)</option>
-                        <option value="Good (96% and above)">Good (96% and above)</option>
-                        <option value="Below School Expectations (95% or below)">Below School Expectations (95% or below)</option>
-                        <option value="Cause for concern (below 91%)">Cause for concern (below 91%)</option>
+                    <label for="var_attendancePercentageText">Attendance Rating Text:</label>
+                    <select id="var_attendancePercentageText" name="var_attendancePercentageText" class="pt-input">
+                        <option value="Attendance is 99% or 100%.">Excellent (99% or 100%)</option>
+                        <option value="Attendance is 96% and above.">Good (96% and above)</option>
+                        <option value="Attendance is 95% or below.">Below Expectations (95% or below)</option>
+                        <option value="Attendance is below 91%.">Cause for concern (below 91%)</option>
                     </select>
                 </div>
                 <div class="pt-input-group">
-                    <label for="punctualityRating">Punctuality Rating:</label>
-                    <select id="punctualityRating" class="pt-input">
+                    <label for="var_punctualityText">Punctuality Rating Text:</label>
+                    <select id="var_punctualityText" name="var_punctualityText" class="pt-input">
                         <option value="Always in school on time.">Always in school on time.</option>
-                        <option value="Occasionally late (no more than 5 sessions).">Occasionally late (no more than 5 sessions).</option>
-                        <option value="Frequently late for school (between 6 & 10 sessions).">Frequently late (between 6 & 10 sessions).</option>
+                        <option value="Occasionally late (no more than 5 sessions).">Occasionally late (max 5)</option>
+                        <option value="Frequently late for school (between 6 & 10 sessions).">Frequently late (6-10)</option>
                         <option value="11 or more late sessions.">11 or more late sessions.</option>
                     </select>
                 </div>
             </div>
-             <div class="pt-input-group">
-                <label for="attendancePunctualityNotes">Optional Attendance/Punctuality Notes:</label>
-                <input type="text" id="attendancePunctualityNotes" class="pt-input" placeholder="e.g., Any absences were authorized.">
-            </div>
-
-
             <div class="pt-input-group">
-                <label for="teacherGeneralComments">Teacher's General Comments (Overall progress, personality, social skills, etc.):</label>
-                <textarea id="teacherGeneralComments" class="pt-input" rows="10" placeholder="e.g., Alfie is a sensitive little boy who has matured into a very polite young man... He has developed an excellent attitude towards school..."></textarea>
-            </div>
-
-            <div class="pt-input-group">
-                <label for="targetsYearAhead">Targets for the Year Ahead (List 2-3 key targets):</label>
-                <textarea id="targetsYearAhead" class="pt-input" rows="5" placeholder="e.g., To take greater care in the presentation of his work.
-To read with expression.
-To believe in yourself and realise how amazing you are!"></textarea>
-            </div>
-
-            <div class="pt-input-group">
-                <label for="pupilComments">Pupil's Comments (Optional - what the child says about their year/learning):</label>
-                <textarea id="pupilComments" class="pt-input" rows="4" placeholder="e.g., I love to read books in the library area... I like building things... When I grow up I want to be a..."></textarea>
-            </div>
-
-             <div class="pt-input-group">
-                <label for="headteacherComments">Head Teacher's Comments (Optional):</label>
-                <textarea id="headteacherComments" class="pt-input" rows="4" placeholder="Enter Head Teacher's comments if available."></textarea>
-            </div>
-
-            <div class="pt-input-group">
-                <label for="previousExamples">Your Previous Report Examples (for tone & style consistency - paste 1-2 examples):</label>
-                <textarea id="previousExamples" class="pt-input" rows="8" placeholder="Paste examples of your report writing style here. This helps the AI match your tone."></textarea>
+                <label for="var_attendancePunctualityDateNote">Attendance/Punctuality Date Note (e.g., *Up to 13th June 2025):</label>
+                <input type="text" id="var_attendancePunctualityDateNote" name="var_attendancePunctualityDateNote" class="pt-input" placeholder="*Up to 13th June 2025">
             </div>
         </section>
 
+        <!-- Narrative Sections with AI Assist -->
+        <section class="pt-card">
+            <h2 class="pt-card-title">F. Narrative Sections (AI Assisted)</h2>
+            
+            <!-- Teacher's General Comments -->
+            <div class="ai-section">
+                <label for="teacherGeneralCommentsNotes">Teacher's General Comments (Shorthand/Notes):</label>
+                <textarea id="teacherGeneralCommentsNotes" class="pt-input notes-input" rows="5" placeholder="Enter notes on overall progress, personality, social skills, academic summary..."></textarea>
+                <button class="pt-button pt-button--secondary generate-ai-text-btn" data-target-id="var_teacherGeneralComments" data-source-id="teacherGeneralCommentsNotes" data-section-name="Teacher's General Comments">Generate Comment</button>
+                <label for="var_teacherGeneralComments" class="final-output-label">Generated Teacher's General Comments (Review & Edit):</label>
+                <textarea id="var_teacherGeneralComments" name="var_teacherGeneralComments" class="pt-input final-text-output" rows="8" placeholder="AI-generated text will appear here..."></textarea>
+            </div>
+
+            <!-- Targets for the year ahead -->
+            <div class="ai-section">
+                <label for="targetsYearAheadNotes">Targets for the Year Ahead (Shorthand/Notes - one per line):</label>
+                <textarea id="targetsYearAheadNotes" class="pt-input notes-input" rows="4" placeholder="e.g., Improve handwriting
+Read more fluently
+Build confidence in maths"></textarea>
+                <button class="pt-button pt-button--secondary generate-ai-text-btn" data-target-id="var_targetsYearAhead" data-source-id="targetsYearAheadNotes" data-section-name="Targets for the Year Ahead">Generate Targets</button>
+                <label for="var_targetsYearAhead" class="final-output-label">Generated Targets (Review & Edit - ensure one target per line):</label>
+                <textarea id="var_targetsYearAhead" name="var_targetsYearAhead" class="pt-input final-text-output" rows="5" placeholder="AI-generated targets will appear here, one per line..."></textarea>
+            </div>
+
+            <!-- Pupil's Comments -->
+            <div class="ai-section">
+                <label for="pupilCommentsNotes">Pupil's Comments (Shorthand/Notes - Optional):</label>
+                <textarea id="pupilCommentsNotes" class="pt-input notes-input" rows="3" placeholder="e.g., Loved science. Enjoyed making models. Want to be astronaut."></textarea>
+                <button class="pt-button pt-button--secondary generate-ai-text-btn" data-target-id="var_pupilComments" data-source-id="pupilCommentsNotes" data-section-name="Pupil's Comments">Generate Pupil Comment</button>
+                <label for="var_pupilComments" class="final-output-label">Generated Pupil's Comments (Review & Edit - Optional):</label>
+                <textarea id="var_pupilComments" name="var_pupilComments" class="pt-input final-text-output" rows="4" placeholder="AI-generated text will appear here..."></textarea>
+            </div>
+            
+            <!-- Head Teacher's Comments -->
+            <div class="ai-section">
+                <label for="headteacherCommentsNotes">Head Teacher's Comments (Shorthand/Notes - Optional):</label>
+                <textarea id="headteacherCommentsNotes" class="pt-input notes-input" rows="3" placeholder="Enter Head Teacher's notes if applicable..."></textarea>
+                <button class="pt-button pt-button--secondary generate-ai-text-btn" data-target-id="var_headteacherComments" data-source-id="headteacherCommentsNotes" data-section-name="Head Teacher's Comments">Generate HT Comment</button>
+                <label for="var_headteacherComments" class="final-output-label">Generated Head Teacher's Comments (Review & Edit - Optional):</label>
+                <textarea id="var_headteacherComments" name="var_headteacherComments" class="pt-input final-text-output" rows="4" placeholder="AI-generated text will appear here..."></textarea>
+            </div>
+        </section>
+
+        <!-- Action Button -->
         <section id="action-section" class="text-center">
-            <button id="generateReportBtn" class="pt-button pt-button--primary pt-button--lg">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-magic" viewBox="0 0 16 16" style="margin-right: 8px; vertical-align: text-bottom;">
-                    <path d="M9.5 2.672a.5.5 0 1 0 1 0V.843a.5.5 0 0 0-1 0v1.829Zm4.5.035A.5.5 0 0 0 13.293 2L12 3.293a.5.5 0 1 0 .707.707L14 2.707ZM7.293 4A.5.5 0 1 0 8 3.293L6.707 2A.5.5 0 0 0 6 2.707L7.293 4Zm-.621 2.5a.5.5 0 0 0 0-1l-1.829-1.828a.5.5 0 1 0-.707.707l1.829 1.828a.5.5 0 0 0 .707 0ZM11.5 4.5a.5.5 0 0 0-1 0v1.829a.5.5 0 0 0 1 0V4.5Zm3.5.035a.5.5 0 0 0-.707-.707L13.5 5.535a.5.5 0 0 0 .707.707L15.035 5.5ZM7.5 6.5a.5.5 0 0 0 0 1l1.828 1.829a.5.5 0 1 0 .708-.707L7.5 6.5Zm-.621 2.5a.5.5 0 0 0 .707 0l1.829-1.828a.5.5 0 1 0-.707-.707L6.672 9.5a.5.5 0 0 0 0 1Z"/>
-                    <path d="M12.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5ZM4.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5ZM12.5 15a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5ZM1.5 4a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5ZM1.5 12a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5Z"/>
-                    <path d="M10.97.273a.5.5 0 0 1 .028.698l-.5 1a.5.5 0 0 1-.727.028L8.227.453a.5.5 0 0 1 .028-.698l.5-1a.5.5 0 0 1 .727-.028L10.97.273ZM5.03.273a.5.5 0 0 1 .727.028l.5 1a.5.5 0 0 1-.028.698L4.773 2.547a.5.5 0 0 1-.727-.028l-.5-1a.5.5 0 0 1 .028-.698L5.03.273Zm5.94 13.454a.5.5 0 0 1 .727.028l.5 1a.5.5 0 0 1-.028.698l-1.547 1.547a.5.5 0 0 1-.727-.028l-.5-1a.5.5 0 0 1 .028-.698l1.547-1.547Zm-5.94 0a.5.5 0 0 1 .028.698l-.5 1a.5.5 0 0 1-.727.028L2.227 14.547a.5.5 0 0 1 .028-.698l.5-1a.5.5 0 0 1 .727-.028l1.547 1.547Z"/>
-                </svg>
-                Generate Report
+            <button id="prepareDataBtn" class="pt-button pt-button--primary pt-button--lg">
+                Prepare Data for Make.com
             </button>
             <div id="loadingIndicator" class="loading-text" style="display: none;">
                 <div class="spinner"></div>
-                Generating report... this may take a moment.
+                Generating AI text...
             </div>
         </section>
 
-        <section id="output-section-container" style="display: none;">
-             <h2 class="pt-card-title text-center" style="margin-bottom: 10px;">Generated Report Preview</h2>
-            <div id="reportOutputWrapper" class="report-output-wrapper pt-card">
-                <!-- This div will simulate the A4 page -->
-                <div class="report-page-view">
-                    <!-- Cover Page Info -->
-                    <div class="report-section text-center" id="outputCoverInfo">
-                        <div class="school-logo-placeholder">
-                            <!-- You can place an <img> tag here if you have a logo URL -->
-                            JARROW CROSS CHURCH OF ENGLAND SCHOOL (Logo Placeholder)
-                        </div>
-                        <p>End of Year Report</p>
-                        <h2 id="outputAcademicYear" class="report-year"></h2>
-                        <h3 id="outputTeacherName" class="report-teacher"></h3>
-                    </div>
-
-                    <!-- Name of Child -->
-                    <div class="report-section" id="outputChildNameSection">
-                        <h3 class="section-title-box"><span id="outputChildName"></span></h3>
-                    </div>
-
-                    <!-- Subject Attainment and Effort -->
-                    <div class="report-section" id="outputSubjectAttainmentSection">
-                        <h4 class="section-title-underline">Subject Attainment and Effort</h4>
-                        <div id="outputSubjectNarrative" class="narrative-text"></div>
-                        <p class="text-color-muted small-text" style="margin-top: 15px;">
-                            Pupil's Attainment is graded in the following bands: Greater Depth (GDS), Expected (EXS), Working Towards (WTS), Below (BLW).
-                            <br>Pupil's effort is graded as follows: 1 Outstanding, 2 Good, 3 Requires improvement.
-                            <br><em style="font-size:0.9em;">(Note: The AI generates a narrative summary. Specific grading for each subject as per the table in the reference document would require manual input or a more complex system.)</em>
-                        </p>
-                    </div>
-
-                    <!-- Attendance and Punctuality -->
-                    <div class="report-section" id="outputAttendancePunctualitySection">
-                        <h4 class="section-title-underline">Attendance and Punctuality <span class="date-note">*Up to [Current Date approx.]</span></h4>
-                        <div class="grid-2-col modern-table-look">
-                            <div><strong>Attendance:</strong> <span id="outputAttendanceRatingText"></span></div>
-                            <div><strong>Punctuality:</strong> <span id="outputPunctualityRatingText"></span></div>
-                        </div>
-                        <div id="outputAttendancePunctualityNotesText" class="narrative-text small-text"></div>
-                    </div>
-                    
-                    <!-- Teacher's General Comments -->
-                    <div class="report-section" id="outputTeacherCommentsSection">
-                        <h4 class="section-title-underline">Teacher's general comments</h4>
-                        <div id="outputTeacherComments" class="narrative-text"></div>
-                    </div>
-
-                    <!-- Targets for the year ahead -->
-                    <div class="report-section" id="outputTargetsSection">
-                        <h4 class="section-title-underline">Targets for the year ahead:</h4>
-                        <ul id="outputTargetsList" class="narrative-text target-list"></ul>
-                    </div>
-
-                    <!-- Pupil's Comments -->
-                    <div class="report-section" id="outputPupilCommentsSection" style="display: none;">
-                        <h4 class="section-title-underline">Pupil's comments</h4>
-                        <div id="outputPupilComments" class="narrative-text"></div>
-                    </div>
-                    
-                    <!-- Head Teacher's Comments -->
-                    <div class="report-section" id="outputHeadteacherCommentsSection" style="display: none;">
-                        <h4 class="section-title-underline">Head teacher's comments</h4>
-                        <div id="outputHeadteacherComments" class="narrative-text"></div>
-                    </div>
-
-                    <!-- Signatures -->
-                    <div class="report-section signature-section">
-                        <div class="signature-line">Signed: _________________________ (Class teacher)</div>
-                        <div class="signature-line">Signed: _________________________ (Head teacher)</div>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center" style="margin-top: 20px;">
-                <button id="copyReportBtn" class="pt-button pt-button--secondary copy-button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16" style="margin-right: 5px; vertical-align: text-bottom;">
-                      <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
-                      <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
-                    </svg>
-                    Copy Full Report Text
-                </button>
-                <span id="copyFeedback" class="copy-feedback" style="margin-left: 10px; display: none;">Copied!</span>
-            </div>
+        <!-- Output for Make.com variables -->
+        <section class="pt-card" id="makeComDataOutputSection" style="display:none;">
+            <h2 class="pt-card-title">G. Data for Make.com</h2>
+            <p>Copy the JSON data below and use it in your Make.com scenario (e.g., in a JSON Parse module after the Webhook).</p>
+            <pre id="makeComDataOutput" class="report-output-area" style="max-height: 400px; overflow-y: auto;"></pre>
         </section>
 
         <footer>
-            <p class="text-color-muted text-center footer-text">MVP by AI | Uses OpenAI</p>
+            <p class="text-color-muted text-center footer-text">Report Data Entry Tool</p>
         </footer>
     </div>
     <script src="script.js"></script>
